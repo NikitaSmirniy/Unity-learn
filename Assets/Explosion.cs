@@ -6,14 +6,15 @@ public class Explosion : MonoBehaviour
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionForce;
     [SerializeField] private ParticleSystem _explosionEffect;
+
     private void OnMouseUpAsButton()
     {
         ActivateExplosion();
         Instantiate(_explosionEffect, transform.position, transform.rotation);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
-    private void ActivateExplosion()
+    public void ActivateExplosion()
     {
         foreach (Rigidbody explosionObject in GetExplodableObjects())
             explosionObject.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);

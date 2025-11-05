@@ -9,7 +9,7 @@ public class Mover : MonoBehaviour
         Move();
     }
 
-    private  void Move()
+    private void Move()
     {
         transform.position = Vector3.MoveTowards(transform.position, Vector3.forward, _speed * Time.deltaTime);
     }
