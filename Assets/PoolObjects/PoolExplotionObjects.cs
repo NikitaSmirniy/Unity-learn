@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace PoolObjects
 {
@@ -7,7 +8,7 @@ namespace PoolObjects
         [SerializeField] private int _poolCount = 3;
         [SerializeField] private bool _autoExpand;
         [SerializeField] private Explosion _explosionPrefab;
-
+        
         private PoolMono<Explosion> _pool;
 
         private void Start()
@@ -20,11 +21,11 @@ namespace PoolObjects
         {
             if(Input.GetMouseButtonDown(0))
             {
-                CreateExplotionObject();
+                Create();
             }
         }
 
-        private void CreateExplotionObject()
+        private void Create()
         {
             var rX = Random.Range(-5, 5);
             var rZ = Random.Range(-5, 5);

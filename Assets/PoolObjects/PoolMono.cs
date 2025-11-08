@@ -5,24 +5,24 @@ namespace PoolObjects
 {
     public class PoolMono<T> where T : MonoBehaviour
     {
-        public T Prefab { get; }
-        public bool AutoExpand { get; set; }
-        public Transform Container { get; }
-
+        private T _prefab;
+        private Transform _container;
         private List<T> _pool;
+
+        public bool AutoExpand { get; set; }
 
         public PoolMono(T prefab, int count)
         {
-            Prefab = prefab;
-            Container = null;
+            _prefab = prefab;
+            _container = null;
 
             CreatePool(count);
         }
 
         public PoolMono(T prefab, int count, Transform container)
         {
-            Prefab = prefab;
-            Container = container;
+            _prefab = prefab;
+            _container = container;
 
             CreatePool(count);
         }
@@ -32,21 +32,19 @@ namespace PoolObjects
             _pool = new List<T>();
 
             for (int i = 0; i < count; i++)
-            {
                 CreateObject();
-            }
         }
 
         private T CreateObject(bool isActiveByDefault = false)
         {
-            var createtObject = Object.Instantiate(Prefab, Container);
-            createtObject.gameObject.SetActive(isActiveByDefault);
-            _pool.Add(createtObject);
+            var createdObject = Object.Instantiate(_prefab, _container);
+            createdObject.gameObject.SetActive(isActiveByDefault);
+            _pool.Add(createdObject);
 
-            return createtObject;
+            return createdObject;
         }
 
-        public bool HasFreeElement(out T element)
+        private bool HasFreeElement(out T element)
         {
             foreach (var mono in _pool)
             {

@@ -23,7 +23,6 @@ namespace FSMTest
             Move(inputDirection);
         }
 
-
         protected Vector2 ReadInput()
         {
             var inputHorizontal = Input.GetAxis("Horizontal");

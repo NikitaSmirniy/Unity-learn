@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace FSMTest
 {
     public abstract class FsmState
