@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.svermeulen.extenject": "https://github.com/modesttree/Zenject.git?path=UnityProject/Assets/Plugins/Zenject",
     "com.unity.cinemachine": "2.8.9",
     "com.unity.collab-proxy": "2.1.0",
     "com.unity.feature.2d": "2.0.0",

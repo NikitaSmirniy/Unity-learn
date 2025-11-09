@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Unit
+public class Player : Unit, IMoveable
 {
-    
+    public void Move(Vector2 direction)
+    {
+        transform.Translate(direction);
+    }
 }
