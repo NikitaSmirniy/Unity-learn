@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 using UnityEngine;
 using Newtonsoft.Json;
+=======
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+>>>>>>> Animation
 
 [CreateAssetMenu(menuName = "Item/Weapon")]//Позволяет создать объект с данным типом при открытии контекстного меню в месте его открытия
 [RequireComponent(typeof(Rigidbody))]//При добавлении этого компонента на объект автоматический добавляет указанный компонент на него
@@ -19,8 +25,11 @@ public class TestAttributes : MonoBehaviour
 
     [Tooltip("Tip/Подсказка")] //Задаёт подсказку при наведении на сериализуемое поле
     [SerializeField] private GameObject _gameObject;
+<<<<<<< HEAD
 
     [field: Header("JsonAttributes"), SerializeField]
     [JsonProperty(PropertyName = "n")] public string NameOfPidor { get; private set; }
     //[JsonIgnore] - позволяет указать поле, которое сериализовать не нужно.
+=======
+>>>>>>> Animation
 }
