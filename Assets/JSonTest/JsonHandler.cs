@@ -15,6 +15,15 @@ public class JsonHandler : MonoBehaviour
         _loaderJson = loaderJson;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+            Save();
+
+        if (Input.GetKeyDown(KeyCode.L))
+            Load();
+    }
+
     public void Save()
     {
         _saverJson.Save(_player);
