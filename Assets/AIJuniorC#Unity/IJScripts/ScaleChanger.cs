@@ -1,10 +1,12 @@
+using UnityEngine;
+
 public class ScaleChanger
 {
-    public void Execute(ExplosionCube explosionCube)
+    public void Execute(Transform transform)
     {
-        int dividerScaleCube = 1;
+        int dividerScale = 2;
 
-        var newScale = explosionCube.transform.localScale / dividerScaleCube;
-        explosionCube.transform.localScale = newScale;
+        var newScale = transform.localScale / dividerScale;
+        transform.localScale = newScale;
     }
 }

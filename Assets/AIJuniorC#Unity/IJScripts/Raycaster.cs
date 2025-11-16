@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Raycaster : IDisposable
+public class Raycaster : IDisposable, IInitializable
 {
     private float _rayRange = 50;
     private InputReader _reader;
@@ -11,7 +11,6 @@ public class Raycaster : IDisposable
     public Raycaster(InputReader reader)
     {
         _reader = reader;
-        _reader.Clicked += Cast;
     }
 
     public void Dispose() =>
@@ -24,5 +23,10 @@ public class Raycaster : IDisposable
         if (Physics.Raycast(ray, out RaycastHit hit, _rayRange) &&
             hit.collider.gameObject.TryGetComponent<ExplosionCube>(out ExplosionCube explotionCube))
             CubeFound?.Invoke(explotionCube);
+    }
+
+    public void Initialize()
+    {
+        _reader.Clicked += Cast;
     }
 }
