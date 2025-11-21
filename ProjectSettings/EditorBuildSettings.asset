@@ -5,16 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Boot.unity
-    guid: e42b6b347230fc84da9984dd97afd417
-  - enabled: 0
-    path: Assets/Scenes/Menu.unity
-    guid: 29256e56ae1f40a4584040663f5fc54e
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/AIJuniorC#Unity/IJScenes/IJScene.unity
+    path: Assets/_Project/_Scenes/IJScene.unity
     guid: 3808fbf2a115fad438e75f5771341094
   m_configObjects: {}
