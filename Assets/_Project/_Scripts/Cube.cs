@@ -3,12 +3,15 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(TouchedDetector))]
 public class Cube : MonoBehaviour
 {
     [SerializeField] private float _minLiveTime = 2;
     [SerializeField] private int _maxLiveTime = 5;
 
     private Renderer _renderer;
+    private Rigidbody _rigidbody;
     private TouchedDetector _touchedDetector;
     
     public event Action<Cube> Lived;
@@ -17,6 +20,7 @@ public class Cube : MonoBehaviour
     {
         _renderer = GetComponent<Renderer>();
         _touchedDetector = GetComponent<TouchedDetector>();
+        _rigidbody = GetComponent<Rigidbody>();
         SetDefaultValues();
     }
 
@@ -33,7 +37,7 @@ public class Cube : MonoBehaviour
     public void SetDefaultValues()
     {
         _renderer.material.color = Color.cyan;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        _rigidbody.velocity = Vector3.zero;
         transform.rotation = Quaternion.identity;
         _touchedDetector.SetDefault();
     }

@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 975427416}
   - component: {fileID: 975427415}
   m_Layer: 3
-  m_Name: Wall
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,8 +243,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 5, z: 1}
+  m_Center: {x: 0, y: -2, z: 0}
 --- !u!23 &975427416
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -728,7 +728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5721359381838993884, guid: 69b53ceacf3756d46bea8700c804d9f6, type: 3}
   _startPoolCubesCount: 3
-  _delay: 0.1
+  _delay: 0.001
   _autoExpand: 1
   _isWorking: 1
 --- !u!4 &2079216397

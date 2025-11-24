@@ -14,7 +14,7 @@ namespace _Project._Scripts
         private RandomPositionGenerator _randomPositionGenerator;
         private PoolMono<Cube> _poolMono;
 
-        private void Start()
+        private void Start())
         {
             _poolMono = new PoolMono<Cube>(_prefab, _startPoolCubesCount, _autoExpand, transform);
             _randomPositionGenerator = new RandomPositionGenerator();
