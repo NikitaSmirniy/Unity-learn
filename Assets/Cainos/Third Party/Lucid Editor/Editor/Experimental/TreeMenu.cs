@@ -24,16 +24,14 @@ namespace Cainos.LucidEditor.Experimental
 
         public string searchString
         {
-            get
-            {
-                return _searchString;
-            }
+            get { return _searchString; }
             set
             {
                 _searchString = value;
                 if (simpleTreeView != null) simpleTreeView.searchString = _searchString;
             }
         }
+
         private string _searchString;
 
         public void AddItem(string path)
@@ -67,6 +65,7 @@ namespace Cainos.LucidEditor.Experimental
                             break;
                         }
                     }
+
                     if (newParent == null)
                     {
                         newParent = CreateItem(currentPath);
@@ -113,34 +112,30 @@ namespace Cainos.LucidEditor.Experimental
                     TreeMenuItem item = FindItem(id);
                     if (item != null) _selectedItems.Add(item);
                 }
+
                 onSelectionChanged?.Invoke(_selectedItems);
             };
 
             if (drawItemCallback != null)
             {
-                simpleTreeView.drawItemCallback = (rect, id) =>
-                {
-                    drawItemCallback.Invoke(rect, FindItem(id));
-                };
+                simpleTreeView.drawItemCallback = (rect, id) => { drawItemCallback.Invoke(rect, FindItem(id)); };
             }
 
             if (itemHeightCallback != null)
             {
-                simpleTreeView.itemHeightCallback = (id) =>
-                {
-                    return itemHeightCallback.Invoke(FindItem(id));
-                };
+                simpleTreeView.itemHeightCallback = (id) => { return itemHeightCallback.Invoke(FindItem(id)); };
             }
         }
 
         private TreeMenuItem FindItem(int id)
         {
             TreeMenuItem item = null;
-            foreach(TreeMenuItem child in baseElements)
+            foreach (TreeMenuItem child in baseElements)
             {
                 item = FindItem(child, id);
                 if (item != null) return item;
             }
+
             return null;
         }
 
@@ -157,7 +152,6 @@ namespace Cainos.LucidEditor.Experimental
 
             return null;
         }
-
     }
 
     public class TreeMenuItem
@@ -176,11 +170,9 @@ namespace Cainos.LucidEditor.Experimental
 
         public string name
         {
-            get
-            {
-                return _name;
-            }
+            get { return _name; }
         }
+
         private string _name;
 
         public TreeMenuItem parent { get; private set; }
@@ -206,6 +198,7 @@ namespace Cainos.LucidEditor.Experimental
                 child.parent = null;
                 return true;
             }
+
             return false;
         }
     }

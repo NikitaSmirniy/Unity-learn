@@ -10,19 +10,22 @@ namespace Cainos.LucidEditor
 {
     public static class SerializedPropertyExtensions
     {
-        public static bool TryGetAttribute<TAttribute>(this SerializedProperty property, out TAttribute result) where TAttribute : Attribute
+        public static bool TryGetAttribute<TAttribute>(this SerializedProperty property, out TAttribute result)
+            where TAttribute : Attribute
         {
             return TryGetAttribute<TAttribute>(property, false, out result);
         }
 
-        public static bool TryGetAttribute<TAttribute>(this SerializedProperty property, bool inherit, out TAttribute result) where TAttribute : Attribute
+        public static bool TryGetAttribute<TAttribute>(this SerializedProperty property, bool inherit,
+            out TAttribute result) where TAttribute : Attribute
         {
             TAttribute att = GetAttribute<TAttribute>(property, inherit);
             result = att;
             return att != null;
         }
 
-        public static TAttribute GetAttribute<TAttribute>(this SerializedProperty property, bool inherit = false) where TAttribute : Attribute
+        public static TAttribute GetAttribute<TAttribute>(this SerializedProperty property, bool inherit = false)
+            where TAttribute : Attribute
         {
             if (property == null)
             {
@@ -38,7 +41,8 @@ namespace Cainos.LucidEditor
 
             foreach (var pathSegment in property.propertyPath.Split('.'))
             {
-                FieldInfo fieldInfo = ReflectionUtil.GetField(targetObjectType, pathSegment, (BindingFlags)(-1), inherit);
+                FieldInfo fieldInfo =
+                    ReflectionUtil.GetField(targetObjectType, pathSegment, (BindingFlags)(-1), inherit);
                 if (fieldInfo != null)
                 {
                     return (TAttribute)fieldInfo.GetCustomAttribute<TAttribute>(inherit);
@@ -54,7 +58,8 @@ namespace Cainos.LucidEditor
             throw new ArgumentException($"Could not find the field or property of {nameof(property)}");
         }
 
-        public static TAttribute[] GetAttributes<TAttribute>(this SerializedProperty property, bool inherit) where TAttribute : Attribute
+        public static TAttribute[] GetAttributes<TAttribute>(this SerializedProperty property, bool inherit)
+            where TAttribute : Attribute
         {
             if (property == null)
             {
@@ -76,7 +81,8 @@ namespace Cainos.LucidEditor
                     return (TAttribute[])fieldInfo.GetCustomAttributes<TAttribute>(inherit);
                 }
 
-                PropertyInfo propertyInfo = ReflectionUtil.GetProperty(targetObjectType, pathSegment, (BindingFlags)(-1), true);
+                PropertyInfo propertyInfo =
+                    ReflectionUtil.GetProperty(targetObjectType, pathSegment, (BindingFlags)(-1), true);
                 if (propertyInfo != null)
                 {
                     return (TAttribute[])propertyInfo.GetCustomAttributes<TAttribute>(inherit);
@@ -124,6 +130,7 @@ namespace Cainos.LucidEditor
             {
                 obj = GetFieldOrPropertyValue<object>(fieldStructure[i], obj);
             }
+
             string fieldName = fieldStructure.Last();
 
             return SetFieldOrPropertyValue(fieldName, obj, value);
@@ -212,6 +219,7 @@ namespace Cainos.LucidEditor
                     obj = GetFieldOrPropertyValue<object>(part, obj, includeAllBases);
                 }
             }
+
             return (T)obj;
         }
 
@@ -227,7 +235,8 @@ namespace Cainos.LucidEditor
                 if (element.Contains("["))
                 {
                     var elementName = element.Substring(0, element.IndexOf("["));
-                    var index = Convert.ToInt32(element.Substring(element.IndexOf("[")).Replace("[", "").Replace("]", ""));
+                    var index = Convert.ToInt32(element.Substring(element.IndexOf("[")).Replace("[", "")
+                        .Replace("]", ""));
                     obj = ReflectionUtil.GetValue(obj, elementName, index);
                 }
                 else
@@ -235,10 +244,13 @@ namespace Cainos.LucidEditor
                     obj = ReflectionUtil.GetValue(obj, element);
                 }
             }
+
             return obj;
         }
 
-        private static T GetFieldOrPropertyValue<T>(string fieldName, object obj, bool includeAllBases = false, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+        private static T GetFieldOrPropertyValue<T>(string fieldName, object obj, bool includeAllBases = false,
+            BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
+                                    BindingFlags.NonPublic)
         {
             FieldInfo field = obj.GetType().GetField(fieldName, bindings);
             if (field != null) return (T)field.GetValue(obj);
@@ -261,7 +273,10 @@ namespace Cainos.LucidEditor
             return default(T);
         }
 
-        private static bool SetFieldOrPropertyValue(string fieldName, object obj, object value, bool includeAllBases = false, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+        private static bool SetFieldOrPropertyValue(string fieldName, object obj, object value,
+            bool includeAllBases = false,
+            BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
+                                    BindingFlags.NonPublic)
         {
             FieldInfo field = obj.GetType().GetField(fieldName, bindings);
             if (field != null)
@@ -296,9 +311,8 @@ namespace Cainos.LucidEditor
                     }
                 }
             }
+
             return false;
         }
-
     }
-
 }

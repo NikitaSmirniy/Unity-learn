@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GenerateRandomPosition
+public class RandomPositionGenerator
 {
     public Vector3 Generate()
     {

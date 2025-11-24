@@ -19,18 +19,24 @@ namespace Cainos.LucidEditor
         private Action action;
         private List<PropertyProcessor> processors = new List<PropertyProcessor>();
 
-        internal InspectorButton(SerializedObject serializedObject, object parentObject, MethodInfo methodInfo, InspectorButtonSize size) : base(serializedObject, null, parentObject, methodInfo.Name, methodInfo.GetCustomAttributes().ToArray())
+        internal InspectorButton(SerializedObject serializedObject, object parentObject, MethodInfo methodInfo,
+            InspectorButtonSize size) : base(serializedObject, null, parentObject, methodInfo.Name,
+            methodInfo.GetCustomAttributes().ToArray())
         {
             this.methodInfo = methodInfo;
             this.size = size;
             this.label = methodInfo.Name;
 
             action = Expression.Lambda<Action>(
-                Expression.Call(methodInfo.IsStatic ? null : Expression.Constant(methodInfo.IsStatic ? null : parentObject), methodInfo)
+                Expression.Call(
+                    methodInfo.IsStatic ? null : Expression.Constant(methodInfo.IsStatic ? null : parentObject),
+                    methodInfo)
             ).Compile();
         }
 
-        internal InspectorButton(SerializedObject serializedObject, object parentObject, MethodInfo methodInfo, string label, InspectorButtonSize size) : base(serializedObject, null, parentObject, methodInfo.Name, methodInfo.GetCustomAttributes().ToArray())
+        internal InspectorButton(SerializedObject serializedObject, object parentObject, MethodInfo methodInfo,
+            string label, InspectorButtonSize size) : base(serializedObject, null, parentObject, methodInfo.Name,
+            methodInfo.GetCustomAttributes().ToArray())
         {
             this.methodInfo = methodInfo;
             this.size = size;

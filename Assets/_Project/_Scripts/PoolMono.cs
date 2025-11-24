@@ -5,11 +5,11 @@ public class PoolMono<T> where T : MonoBehaviour
 {
     private T _prefab;
     private Transform _container;
-    private List<T> _pool;
+    private Queue<T> _pool;
 
     private bool _autoExpand;
 
-    public PoolMono(T prefab, int count, bool autoExpand,Transform container)
+    public PoolMono(T prefab, int count, bool autoExpand, Transform container)
     {
         _prefab = prefab;
         _container = container;
@@ -20,46 +20,40 @@ public class PoolMono<T> where T : MonoBehaviour
 
     private void CreatePool(int count)
     {
-        _pool = new List<T>();
-        
+        _pool = new Queue<T>();
+
         for (int i = 0; i < count; i++)
             CreateObject();
     }
 
-    private T CreateObject(bool isActiveByDefault = false)
+    private T CreateObject()
     {
         var createdObject = Object.Instantiate(_prefab, _container);
-        createdObject.gameObject.SetActive(isActiveByDefault);
-        _pool.Add(createdObject);
+        _pool.Enqueue(createdObject);
 
         return createdObject;
     }
 
-    private bool HasFreeElement(out T element)
+    private bool HasFreeElement()
     {
-        foreach (var mono in _pool)
-        {
-            if (!mono.gameObject.activeInHierarchy)
-            {
-                element = mono;
-                mono.gameObject.SetActive(true);
+        return _pool.Count > 0;
+    }
 
-                return true;
-            }
-        }
-
-        element = null;
-
-        return false;
+    public void TakeElement(T element)
+    {
+        _pool.Enqueue(element);
     }
 
     public T GetFreeEelement()
     {
-        if (HasFreeElement(out var element))
-            return element;
+        if (HasFreeElement())
+            return _pool.Dequeue();
 
         if (_autoExpand)
-            return CreateObject(true);
+        {
+            CreateObject();
+            return _pool.Dequeue();
+        }
 
         throw new System.Exception("There is no free elements in pool");
     }

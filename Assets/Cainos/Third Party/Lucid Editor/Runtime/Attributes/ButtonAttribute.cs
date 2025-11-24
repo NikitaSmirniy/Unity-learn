@@ -8,7 +8,9 @@ namespace Cainos.LucidEditor
         public readonly string label = null;
         public readonly InspectorButtonSize size = InspectorButtonSize.Small;
 
-        public ButtonAttribute() { }
+        public ButtonAttribute()
+        {
+        }
 
         public ButtonAttribute(string label)
         {

@@ -22,6 +22,7 @@ namespace Cainos.LucidEditor
                     return (TAttribute)att;
                 }
             }
+
             return null;
         }
 
@@ -35,11 +36,13 @@ namespace Cainos.LucidEditor
                     return true;
                 }
             }
+
             result = null;
             return false;
         }
 
-        internal InspectorProperty(SerializedObject serializedObject, SerializedProperty serializedProperty, object parentObject, string name, Attribute[] attributes)
+        internal InspectorProperty(SerializedObject serializedObject, SerializedProperty serializedProperty,
+            object parentObject, string name, Attribute[] attributes)
         {
             this.serializedObject = serializedObject;
             if (serializedProperty != null)
@@ -47,6 +50,7 @@ namespace Cainos.LucidEditor
                 this.serializedProperty = serializedProperty.Copy();
                 type = serializedProperty.GetUnderlyingType();
             }
+
             this.parentObject = parentObject;
             this.displayName = name;
             this.name = name;
@@ -83,5 +87,4 @@ namespace Cainos.LucidEditor
             _changed = false;
         }
     }
-
 }

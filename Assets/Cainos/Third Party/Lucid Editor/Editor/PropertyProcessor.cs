@@ -22,17 +22,32 @@ namespace Cainos.LucidEditor
             );
         }
 
-        public virtual void Initialize() { }
-        public virtual void OnBeforeInspectorGUI() { }
-        public virtual void OnAfterInspectorGUI() { }
-        public virtual void OnBeforeDrawProperty() { }
-        public virtual void OnAfterDrawProperty() { }
+        public virtual void Initialize()
+        {
+        }
+
+        public virtual void OnBeforeInspectorGUI()
+        {
+        }
+
+        public virtual void OnAfterInspectorGUI()
+        {
+        }
+
+        public virtual void OnBeforeDrawProperty()
+        {
+        }
+
+        public virtual void OnAfterDrawProperty()
+        {
+        }
     }
 
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class CustomAttributeProcessorAttribute : Attribute
     {
         public readonly Type type;
+
         public CustomAttributeProcessorAttribute(Type type)
         {
             this.type = type;

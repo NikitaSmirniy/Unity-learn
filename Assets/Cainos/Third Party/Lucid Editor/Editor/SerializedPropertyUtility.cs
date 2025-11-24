@@ -24,6 +24,7 @@ namespace Cainos.LucidEditor
                 else
                     return null;
             }
+
             if (fi != null)
                 return fi;
             else return null;

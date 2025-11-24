@@ -141,16 +141,14 @@ namespace Cainos.LucidEditor
 
         public T Value
         {
-            get
-            {
-                return value;
-            }
+            get { return value; }
             set
             {
                 if (!comparer.Equals(this.value, value))
                 {
                     LucidEditorPrefs.Set<T>(key, value);
                 }
+
                 this.value = value;
             }
         }
@@ -170,16 +168,14 @@ namespace Cainos.LucidEditor
 
         public T Value
         {
-            get
-            {
-                return value;
-            }
+            get { return value; }
             set
             {
                 if (!comparer.Equals(this.value, value))
                 {
                     LucidEditorPrefs.Set<T>(key, value);
                 }
+
                 this.value = value;
             }
         }

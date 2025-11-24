@@ -10,6 +10,7 @@ namespace Cainos.LucidEditor
     public class SerializeReferenceDropdownItem : AdvancedDropdownItem
     {
         public readonly Type type;
+
         public SerializeReferenceDropdownItem(Type type, string name) : base(name)
         {
             this.type = type;
@@ -46,6 +47,7 @@ namespace Cainos.LucidEditor
                 {
                     continue;
                 }
+
                 for (int i = 0; (splittedTypePath.Length - 1) > i; i++)
                 {
                     string ns = namespaces[i];
@@ -94,7 +96,8 @@ namespace Cainos.LucidEditor
                     }
                 }
 
-                var item = new SerializeReferenceDropdownItem(type, ObjectNames.NicifyVariableName(splittedTypePath[splittedTypePath.Length - 1]))
+                var item = new SerializeReferenceDropdownItem(type,
+                    ObjectNames.NicifyVariableName(splittedTypePath[splittedTypePath.Length - 1]))
                 {
                     id = itemCount++
                 };
@@ -108,10 +111,12 @@ namespace Cainos.LucidEditor
             {
                 if (item.name == name) return item;
             }
+
             return null;
         }
 
-        public SerializeReferenceDropdown(IEnumerable<Type> types, int maxLineCount, AdvancedDropdownState state) : base(state)
+        public SerializeReferenceDropdown(IEnumerable<Type> types, int maxLineCount, AdvancedDropdownState state) :
+            base(state)
         {
             SetTypes(types);
             minimumSize = new Vector2(minimumSize.x, EditorGUIUtility.singleLineHeight * maxLineCount + headerHeight);
@@ -150,6 +155,5 @@ namespace Cainos.LucidEditor
                 return new string[] { type.Name };
             }
         }
-
     }
 }

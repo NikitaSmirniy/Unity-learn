@@ -1,17 +1,22 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Cube : MonoBehaviour
 {
+    [SerializeField] private float _minLiveTime = 2;
+    [SerializeField] private int _maxLiveTime = 5;
+
     private Renderer _renderer;
     private TouchedDetector _touchedDetector;
-    private LiveTimeGenerator _liveTimeGenerator;
+    
+    public event Action<Cube> Lived;
 
     private void Awake()
     {
         _renderer = GetComponent<Renderer>();
         _touchedDetector = GetComponent<TouchedDetector>();
-        _liveTimeGenerator = new LiveTimeGenerator();
         SetDefaultValues();
     }
 
@@ -28,17 +33,19 @@ public class Cube : MonoBehaviour
     public void SetDefaultValues()
     {
         _renderer.material.color = Color.cyan;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        transform.rotation = Quaternion.identity;
         _touchedDetector.SetDefault();
     }
 
-    private void StartLiveTime() => StartCoroutine(StartCounter(_liveTimeGenerator.Generate()));
+    private void StartLiveTime() => StartCoroutine(StartCounter());
 
-    private IEnumerator StartCounter(float delay)
+    private IEnumerator StartCounter()
     {
         _renderer.material.color = Color.yellow;
 
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(Random.Range(_minLiveTime, _maxLiveTime));
 
-        gameObject.SetActive(false);
+        Lived?.Invoke(this);
     }
 }

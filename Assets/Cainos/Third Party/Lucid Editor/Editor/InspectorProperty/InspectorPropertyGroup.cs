@@ -7,7 +7,9 @@ namespace Cainos.LucidEditor
 {
     public sealed class InspectorPropertyGroup : InspectorProperty
     {
-        internal InspectorPropertyGroup(string path, SerializedObject serializedObject, PropertyGroupAttribute attribute) : base(serializedObject, null, null, path.Split('/').Last(), new[] { attribute })
+        internal InspectorPropertyGroup(string path, SerializedObject serializedObject,
+            PropertyGroupAttribute attribute) : base(serializedObject, null, null, path.Split('/').Last(),
+            new[] { attribute })
         {
             this.path = path;
             groupDepth = path.Split('/').Count();
@@ -86,7 +88,5 @@ namespace Cainos.LucidEditor
                 property.OnAfterInspectorGUI();
             }
         }
-
     }
-
 }

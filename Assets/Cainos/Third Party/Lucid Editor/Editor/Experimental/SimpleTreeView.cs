@@ -13,7 +13,9 @@ namespace Cainos.LucidEditor.Experimental
         public Func<int, float> itemHeightCallback;
         public event Action<IList<int>> onSelectionChanged;
 
-        public SimpleTreeView(TreeViewState treeViewState) : base(treeViewState) { }
+        public SimpleTreeView(TreeViewState treeViewState) : base(treeViewState)
+        {
+        }
 
         public void Setup(TreeMenuItem[] baseElements)
         {
@@ -48,6 +50,7 @@ namespace Cainos.LucidEditor.Experimental
             {
                 return itemHeightCallback.Invoke(item.id);
             }
+
             return base.GetCustomRowHeight(row, item);
         }
 

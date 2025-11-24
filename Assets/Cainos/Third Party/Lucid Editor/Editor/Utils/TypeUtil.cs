@@ -7,9 +7,10 @@ using UnityEditor;
 
 namespace Cainos.LucidEditor
 {
-    internal static class TypeUtil 
+    internal static class TypeUtil
     {
         private static List<Type> cacheCustomDrawerTypes;
+
         public static bool HasCustomDrawerType(Type type)
         {
             if (cacheCustomDrawerTypes == null)
@@ -17,12 +18,15 @@ namespace Cainos.LucidEditor
                 cacheCustomDrawerTypes = new List<Type>();
                 foreach (var drawer in TypeCache.GetTypesDerivedFrom<GUIDrawer>())
                 {
-                    foreach (CustomPropertyDrawer customAttribute in drawer.GetCustomAttributes(typeof(CustomPropertyDrawer), true))
+                    foreach (CustomPropertyDrawer customAttribute in drawer.GetCustomAttributes(
+                                 typeof(CustomPropertyDrawer), true))
                     {
-                        var field = customAttribute.GetType().GetField("m_Type", BindingFlags.NonPublic | BindingFlags.Instance);
-                        var useForChildren = customAttribute.GetType().GetField("m_UseForChildren", BindingFlags.NonPublic | BindingFlags.Instance);
+                        var field = customAttribute.GetType()
+                            .GetField("m_Type", BindingFlags.NonPublic | BindingFlags.Instance);
+                        var useForChildren = customAttribute.GetType().GetField("m_UseForChildren",
+                            BindingFlags.NonPublic | BindingFlags.Instance);
                         var t = (Type)field.GetValue(customAttribute);
-                        
+
                         if (!cacheCustomDrawerTypes.Contains(t)) cacheCustomDrawerTypes.Add(t);
                         if ((bool)useForChildren.GetValue(customAttribute))
                         {
@@ -34,16 +38,19 @@ namespace Cainos.LucidEditor
                     }
                 }
             }
+
             return cacheCustomDrawerTypes.Contains(type);
         }
 
         private static List<Type> cacheTypes;
+
         public static Type GetType(string name)
         {
             foreach (Type type in GetAllTypes())
             {
                 if (type.Name == name) return type;
             }
+
             return null;
         }
 
@@ -121,5 +128,4 @@ namespace Cainos.LucidEditor
             return f(t1);
         }
     }
-
 }

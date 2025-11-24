@@ -4,5 +4,7 @@ using UnityEngine;
 namespace Cainos.LucidEditor
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class DisableLucidEditorAttribute : Attribute { }
+    public class DisableLucidEditorAttribute : Attribute
+    {
+    }
 }

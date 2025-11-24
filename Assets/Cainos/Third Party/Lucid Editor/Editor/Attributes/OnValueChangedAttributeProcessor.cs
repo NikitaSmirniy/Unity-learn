@@ -10,7 +10,8 @@ namespace Cainos.LucidEditor
             if (property.changed)
             {
                 OnValueChangedAttribute onValueChanged = (OnValueChangedAttribute)attribute;
-                ReflectionUtil.Invoke(property.parentObject, onValueChanged.methodName, property.serializedProperty.GetValue<object>());
+                ReflectionUtil.Invoke(property.parentObject, onValueChanged.methodName,
+                    property.serializedProperty.GetValue<object>());
             }
         }
     }
