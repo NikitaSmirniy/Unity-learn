@@ -11,7 +11,9 @@ public class TouchedDetector : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (_isTouched == false & ((1 << other.gameObject.layer) & _layerMask) != 0)
+        var layer = other.gameObject.layer << 1;
+        
+        if (_isTouched == false && ((layer) & _layerMask) != 0)
         {
             _isTouched = true;
             Touched?.Invoke();

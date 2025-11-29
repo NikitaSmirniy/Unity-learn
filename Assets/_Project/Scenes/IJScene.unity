@@ -213,6 +213,52 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &838373198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 838373200}
+  - component: {fileID: 838373199}
+  m_Layer: 0
+  m_Name: Boids
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &838373199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838373198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7e9b9b43594c57942e1c3ba64d61ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _numberOfEntities: 10000
+  _boidPrefab: {fileID: 8285479028024134836, guid: 38185a40dc4cd244f9b62a0a2f5244aa, type: 3}
+--- !u!4 &838373200
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838373198}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.968264, y: -6.0934296, z: -1.6955376}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &975427414
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,14 +477,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1418710033}
-  m_LocalRotation: {x: 0.19132291, y: 0, z: 0, w: 0.98152715}
-  m_LocalPosition: {x: 0, y: -11.6, z: -44.4}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.02, y: 1.15, z: -2.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 22.06, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1726342865
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2079216396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,7 +774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5721359381838993884, guid: 69b53ceacf3756d46bea8700c804d9f6, type: 3}
   _startPoolCubesCount: 3
-  _delay: 0.001
+  _delay: 0.05
   _autoExpand: 1
   _isWorking: 1
 --- !u!4 &2079216397
