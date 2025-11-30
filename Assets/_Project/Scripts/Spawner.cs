@@ -5,17 +5,18 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private Cube _prefab;
     [SerializeField] private int _startPoolCubesCount = 3;
+    [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private float _delay;
     [SerializeField] private bool _autoExpand;
     [SerializeField] private bool _isWorking = true;
 
-    private RandomPositionGenerator _randomPositionGenerator;
+    private RandomDirectionGenerator _randomDirectionGenerator;
     private PoolMono<Cube> _poolMono;
 
     private void Start()
     {
         _poolMono = new PoolMono<Cube>(_prefab, _startPoolCubesCount, _autoExpand, transform);
-        _randomPositionGenerator = new RandomPositionGenerator();
+        _randomDirectionGenerator = new RandomDirectionGenerator();
 
         StartCoroutine(Create());
     }
@@ -27,17 +28,22 @@ public class Spawner : MonoBehaviour
             yield return new WaitForSeconds(_delay);
 
             var freeCube = _poolMono.GetFreeEelement();
-            freeCube.transform.position = _randomPositionGenerator.Generate();
-            freeCube.Lived += OnCubeLived;
+            var randomPosition = Random.Range(0, _spawnPoints.Length);
+            var randomMoveDirection = _randomDirectionGenerator.Generate();
+            freeCube.Init(_spawnPoints[randomPosition].position, randomMoveDirection);
+            
+            Debug.Log(randomMoveDirection);
+            
             freeCube.gameObject.SetActive(true);
-            freeCube.SetDefaultValues();
+            freeCube.Dead += OnCubeDead;
         }
     }
 
-    private void OnCubeLived(Cube cube)
+    private void OnCubeDead(Cube cube)
     {
-        cube.Lived -= OnCubeLived;
-        cube.gameObject.SetActive(false);
+        cube.Dead -= OnCubeDead;
+        cube.SetDefaultValues();
         _poolMono.TakeElement(cube);
+        cube.gameObject.SetActive(false);
     }
 }

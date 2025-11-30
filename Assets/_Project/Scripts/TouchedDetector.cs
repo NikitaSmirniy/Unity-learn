@@ -3,17 +3,13 @@ using UnityEngine;
 
 public class TouchedDetector : MonoBehaviour
 {
-    [SerializeField] private LayerMask _layerMask;
-
     private bool _isTouched;
 
     public event Action Touched;
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        var layer = other.gameObject.layer << 1;
-        
-        if (_isTouched == false && ((layer) & _layerMask) != 0)
+        if (_isTouched == false && other.gameObject.TryGetComponent(out RemovalZone _))
         {
             _isTouched = true;
             Touched?.Invoke();

@@ -29,6 +29,8 @@ public class PoolMono<T> where T : MonoBehaviour
     private T CreateObject()
     {
         var createdObject = Object.Instantiate(_prefab, _container);
+        createdObject.gameObject.SetActive(false);
+        
         _pool.Enqueue(createdObject);
 
         return createdObject;
