@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class Mover : IMovable
+public class TransformMover : IMovable
 {
     private Transform _transform;
 
-    public Mover(Transform transform)
+    public TransformMover(Transform transform)
     {
         _transform = transform;
     }
