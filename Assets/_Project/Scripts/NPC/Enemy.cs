@@ -12,7 +12,7 @@ public class Enemy : NPC
     private void Awake()
     {
         _detectorCitizen = GetComponent<DetectorCitizen>();
-        _moverHandler = GetComponent<MoverHandler>();
+        _mover = GetComponent<Mover>();
         SetDefaultValues();
     }
 
@@ -33,7 +33,7 @@ public class Enemy : NPC
         ReachedTarget?.Invoke(this);
     }
 
-    public override void SetDefaultValues()
+    public void SetDefaultValues()
     {
         transform.rotation = Quaternion.identity;
         _detectorCitizen.SetDefault();

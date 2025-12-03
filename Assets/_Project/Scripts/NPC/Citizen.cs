@@ -12,8 +12,8 @@ public class Citizen : NPC
 
     private void Awake()
     {
-        if (_moverHandler == null)
-            _moverHandler = GetComponent<MoverHandler>();
+        if (_mover == null)
+            _mover = GetComponent<Mover>();
 
         if (_wayPointsContainer == null)
             _wayPointsContainer = new WayPointsContainer(null);
@@ -23,17 +23,17 @@ public class Citizen : NPC
 
     private void OnEnable()
     {
-        _wayPointsContainer.Changed += _moverHandler.SetTarget;
+        _wayPointsContainer.Changed += _mover.SetTarget;
     }
 
     private void OnDisable()
     {
-        _wayPointsContainer.Changed -= _moverHandler.SetTarget;
+        _wayPointsContainer.Changed -= _mover.SetTarget;
     }
 
     private void Update()
     {
-        if(Vector3.Distance(transform.position, _moverHandler.TargetPosition.position) <= _acceptableSwitchingDistance)
+        if((_mover.TargetPosition.position - transform.position).sqrMagnitude <= _acceptableSwitchingDistance)
             _wayPointsContainer.Change();
     }
     
@@ -42,8 +42,8 @@ public class Citizen : NPC
         _wayPointsContainer = new WayPointsContainer(wayPoints);
         var startPos = wayPoints[0].transform;
 
-        _moverHandler = GetComponent<MoverHandler>();
-        _moverHandler.SetTarget(startPos);
+        _mover = GetComponent<Mover>();
+        _mover.SetTarget(startPos);
         gameObject.SetActive(true);
     }
 }

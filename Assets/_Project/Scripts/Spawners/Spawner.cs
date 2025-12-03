@@ -13,10 +13,12 @@ public class Spawner : MonoBehaviour
 
     private PoolMono<Enemy> _poolMono;
     private Transform _target;
+    private WaitForSeconds _wait;
 
     private void Start()
     {
         _poolMono = new PoolMono<Enemy>(_prefab, _startPoolEnemiesCount, _autoExpand, _container);
+        _wait = new WaitForSeconds(_delay);
     }
 
     public void StartSpawning()
@@ -35,7 +37,7 @@ public class Spawner : MonoBehaviour
     {
         while (_isWorking)
         {
-            yield return new WaitForSeconds(_delay);
+            yield return _wait;
 
             var freeEnemy = _poolMono.GetFreeEelement();
             var startPosition = Random.Range(0, _spawnPoints.Length);

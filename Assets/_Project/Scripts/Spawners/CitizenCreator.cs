@@ -12,18 +12,16 @@ public class CitizenCreator
 
     private RandomWayPointsGenerator _generator;
 
-    public CitizenCreator(Citizen prefab, int minNumberOfWayPoints, int maxNumberOfWayPoints,
-        int minPointGenerationCoordinate, int maxPointGenerationCoordinate, int minSpawnPosOfCitizen,
-        int maxSpawnPosOfCitizen,
+    public CitizenCreator(Citizen prefab, CitizenPreload citizenPreload,
         RandomWayPointsGenerator generator)
     {
         _prefab = prefab;
-        _minNumberOfWayPoints = minNumberOfWayPoints;
-        _maxNumberOfWayPoints = maxNumberOfWayPoints;
-        _minPointGenerationCoordinate = minPointGenerationCoordinate;
-        _maxPointGenerationCoordinate = maxPointGenerationCoordinate;
-        _minSpawnPosOfCitizen = minSpawnPosOfCitizen;
-        _maxSpawnPosOfCitizen = maxSpawnPosOfCitizen;
+        _minNumberOfWayPoints = citizenPreload.MinNumberOfWayPoints;
+        _maxNumberOfWayPoints = citizenPreload.MaxNumberOfWayPoints;
+        _minPointGenerationCoordinate = citizenPreload.MinPointGenerationCoordinate;
+        _maxPointGenerationCoordinate = citizenPreload.MaxPointGenerationCoordinate;
+        _minSpawnPosOfCitizen = citizenPreload.MinSpawnPosOfCitizen;
+        _maxSpawnPosOfCitizen = citizenPreload.MaxSpawnPosOfCitizen;
         _generator = generator;
     }
 

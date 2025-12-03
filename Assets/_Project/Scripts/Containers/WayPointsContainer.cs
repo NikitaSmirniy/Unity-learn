@@ -15,11 +15,8 @@ public class WayPointsContainer
 
     public void Change()
     {
-        if (_currentNumberOfPoint >= _points.Length - 1)
-            _currentNumberOfPoint = 0;
-        else
-            _currentNumberOfPoint++;
-
+        _currentNumberOfPoint = ++_currentNumberOfPoint % _points.Length;
+        
         Changed?.Invoke(_points[_currentNumberOfPoint].transform);
     }
 }
