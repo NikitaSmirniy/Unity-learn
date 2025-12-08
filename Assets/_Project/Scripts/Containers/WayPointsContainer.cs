@@ -1,22 +1,19 @@
-using System;
 using UnityEngine;
 
 public class WayPointsContainer
 {
     private Transform[] _points;
-    private int _currentNumberOfPoint;
+    private int _currentWayPoint;
 
-    public event Action<Transform> Changed;
+    public Transform CurrentWayPoint => _points[_currentWayPoint];
 
     public WayPointsContainer(Transform[] points)
     {
         _points = points;
     }
 
-    public void Change()
+    public void ChangeCurrent()
     {
-        _currentNumberOfPoint = ++_currentNumberOfPoint % _points.Length;
-        
-        Changed?.Invoke(_points[_currentNumberOfPoint].transform);
+        _currentWayPoint = ++_currentWayPoint % _points.Length;
     }
 }
