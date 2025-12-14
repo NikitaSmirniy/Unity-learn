@@ -17,8 +17,7 @@ namespace Cainos.LucidEditor
         public override void BeginPropertyGroup()
         {
             LucidEditorGUILayout.BeginLayoutIndent(EditorGUI.indentLevel);
-            expanded.Value =
-                LucidEditorGUILayout.BeginFoldoutGroup(expanded.Value, attribute.name, GUILayout.MinWidth(0));
+            expanded.Value = LucidEditorGUILayout.BeginFoldoutGroup(expanded.Value, attribute.name, GUILayout.MinWidth(0));
             group.isExpanded = expanded.Value;
         }
 

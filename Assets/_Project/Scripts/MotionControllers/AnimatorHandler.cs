@@ -4,8 +4,12 @@ using UnityEngine;
 public class AnimatorHandler : MonoBehaviour
 {
     private const string SpeedAnimatorParameter = "Speed";
+    private const string JumpAnimatorParameter = "Jump";
+    private const string FallAnimatorParameter = "Falling";
 
     private readonly int Speed = Animator.StringToHash(SpeedAnimatorParameter);
+    private readonly int Jump = Animator.StringToHash(JumpAnimatorParameter);
+    private  readonly int Falling = Animator.StringToHash(FallAnimatorParameter);
 
     private Animator _animator;
 
@@ -14,6 +18,12 @@ public class AnimatorHandler : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void SetAnimation(float speed) =>
+    public void PlayJump() =>
+        _animator.SetTrigger(Jump);
+
+    public void PlayFalling(int isFalling) =>
+        _animator.SetInteger(Falling, isFalling);
+
+    public void SetMove(float speed) =>
         _animator.SetFloat(Speed, speed);
 }

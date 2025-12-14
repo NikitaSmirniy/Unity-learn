@@ -42,8 +42,7 @@ namespace Cainos.LucidEditor
 
         private void InitializeProperties()
         {
-            properties = InspectorPropertyUtil.GroupProperties(InspectorPropertyUtil.CreateProperties(serializedObject))
-                .ToArray();
+            properties = InspectorPropertyUtil.GroupProperties(InspectorPropertyUtil.CreateProperties(serializedObject)).ToArray();
             foreach (InspectorProperty property in properties)
             {
                 property.Initialize();
@@ -81,6 +80,7 @@ namespace Cainos.LucidEditor
                 property.OnAfterInspectorGUI();
             }
         }
+
     }
 
     //[CanEditMultipleObjects]
@@ -90,4 +90,5 @@ namespace Cainos.LucidEditor
     //[CanEditMultipleObjects]
     //[CustomEditor(typeof(ScriptableObject), true)]
     //internal class ScriptableObjectEditor : LucidEditor { }
+
 }

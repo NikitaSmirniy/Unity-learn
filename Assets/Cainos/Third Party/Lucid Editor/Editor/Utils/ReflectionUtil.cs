@@ -9,28 +9,16 @@ namespace Cainos.LucidEditor
 {
     internal static class ReflectionUtil
     {
-        private static Dictionary<(Type, string, BindingFlags, bool), FieldInfo> cacheFieldInfo =
-            new Dictionary<(Type, string, BindingFlags, bool), FieldInfo>();
-
-        private static Dictionary<(Type, string, BindingFlags, bool), PropertyInfo> cachePropertyInfo =
-            new Dictionary<(Type, string, BindingFlags, bool), PropertyInfo>();
-
-        private static Dictionary<(Type, BindingFlags, bool), MemberInfo[]> cacheAllMembers =
-            new Dictionary<(Type, BindingFlags, bool), MemberInfo[]>();
+        private static Dictionary<(Type, string, BindingFlags, bool), FieldInfo> cacheFieldInfo = new Dictionary<(Type, string, BindingFlags, bool), FieldInfo>();
+        private static Dictionary<(Type, string, BindingFlags, bool), PropertyInfo> cachePropertyInfo = new Dictionary<(Type, string, BindingFlags, bool), PropertyInfo>();
+        private static Dictionary<(Type, BindingFlags, bool), MemberInfo[]> cacheAllMembers = new Dictionary<(Type, BindingFlags, bool), MemberInfo[]>();
         // private static Dictionary<(object, BindingFlags), MethodInfo[]> cacheAllMethods = new Dictionary<(object, BindingFlags), MethodInfo[]>();
 
-        private static Dictionary<(object, string), Func<object>> cacheGetFieldValue =
-            new Dictionary<(object, string), Func<object>>();
+        private static Dictionary<(object, string), Func<object>> cacheGetFieldValue = new Dictionary<(object, string), Func<object>>();
+        private static Dictionary<(object, string), Func<object>> cacheGetPropertyValue = new Dictionary<(object, string), Func<object>>();
+        private static Dictionary<(object, string), Func<object>> cacheGetMethodValue = new Dictionary<(object, string), Func<object>>();
 
-        private static Dictionary<(object, string), Func<object>> cacheGetPropertyValue =
-            new Dictionary<(object, string), Func<object>>();
-
-        private static Dictionary<(object, string), Func<object>> cacheGetMethodValue =
-            new Dictionary<(object, string), Func<object>>();
-
-        public static object GetFieldValue(object target, Type type, string name,
-            BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance |
-                                       BindingFlags.Static)
+        public static object GetFieldValue(object target, Type type, string name, BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
         {
             if (cacheGetFieldValue.ContainsKey((target, name)))
             {
@@ -47,8 +35,7 @@ namespace Cainos.LucidEditor
                 }
 
                 var lambda = Expression.Lambda<Func<object>>(
-                    Expression.Convert(Expression.Field(info.IsStatic ? null : Expression.Constant(target), info),
-                        typeof(object))
+                    Expression.Convert(Expression.Field(info.IsStatic ? null : Expression.Constant(target), info), typeof(object))
                 );
 
                 cacheGetFieldValue.Add((target, name), lambda.Compile());
@@ -57,9 +44,7 @@ namespace Cainos.LucidEditor
             }
         }
 
-        public static object GetPropertyValue(object target, Type type, string name,
-            BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance |
-                                       BindingFlags.Static)
+        public static object GetPropertyValue(object target, Type type, string name, BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
         {
             if (cacheGetPropertyValue.ContainsKey((target, name)))
             {
@@ -76,9 +61,7 @@ namespace Cainos.LucidEditor
                 }
 
                 var lambda = Expression.Lambda<Func<object>>(
-                    Expression.Convert(
-                        Expression.Property(info.GetGetMethod(true).IsStatic ? null : Expression.Constant(target),
-                            info), typeof(object))
+                    Expression.Convert(Expression.Property(info.GetGetMethod(true).IsStatic ? null : Expression.Constant(target), info), typeof(object))
                 );
 
                 cacheGetPropertyValue.Add((target, name), lambda.Compile());
@@ -87,9 +70,7 @@ namespace Cainos.LucidEditor
             }
         }
 
-        public static object GetMethodValue(object target, Type type, string name,
-            BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance |
-                                       BindingFlags.Static)
+        public static object GetMethodValue(object target, Type type, string name, BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
         {
             if (cacheGetMethodValue.ContainsKey((target, name)))
             {
@@ -106,8 +87,7 @@ namespace Cainos.LucidEditor
                 }
 
                 var lambda = Expression.Lambda<Func<object>>(
-                    Expression.Convert(Expression.Call(info.IsStatic ? null : Expression.Constant(target), info),
-                        typeof(object))
+                    Expression.Convert(Expression.Call(info.IsStatic ? null : Expression.Constant(target), info), typeof(object))
                 );
 
                 cacheGetMethodValue.Add((target, name), lambda.Compile());
@@ -116,9 +96,7 @@ namespace Cainos.LucidEditor
             }
         }
 
-        public static FieldInfo GetField(Type type, string name,
-            BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance |
-                                       BindingFlags.Static, bool inherit = false)
+        public static FieldInfo GetField(Type type, string name, BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static, bool inherit = false)
         {
             FieldInfo info;
             if (cacheFieldInfo.ContainsKey((type, name, bindingAttr, inherit)))
@@ -135,24 +113,18 @@ namespace Cainos.LucidEditor
                 {
                     info = type.GetField(name, bindingAttr);
                 }
-
                 cacheFieldInfo.Add((type, name, bindingAttr, inherit), info);
             }
-
             return info;
         }
 
-        private static IEnumerable<FieldInfo> GetAllFieldsIncludingInherited(Type type,
-            BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance |
-                                       BindingFlags.Static)
+        private static IEnumerable<FieldInfo> GetAllFieldsIncludingInherited(Type type, BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
         {
             if (type == null) return Enumerable.Empty<FieldInfo>();
             return type.GetFields(bindingAttr).Concat(GetAllFieldsIncludingInherited(type.BaseType));
         }
 
-        public static PropertyInfo GetProperty(Type type, string name,
-            BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance |
-                                       BindingFlags.Static, bool inherit = false)
+        public static PropertyInfo GetProperty(Type type, string name, BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static, bool inherit = false)
         {
             PropertyInfo info;
             if (cachePropertyInfo.ContainsKey((type, name, bindingAttr, inherit)))
@@ -169,24 +141,18 @@ namespace Cainos.LucidEditor
                 {
                     info = type.GetProperty(name, bindingAttr);
                 }
-
                 cachePropertyInfo.Add((type, name, bindingAttr, inherit), info);
             }
-
             return info;
         }
 
-        private static IEnumerable<PropertyInfo> GetAllPropertiesIncludingInherited(Type type,
-            BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance |
-                                       BindingFlags.Static)
+        private static IEnumerable<PropertyInfo> GetAllPropertiesIncludingInherited(Type type, BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
         {
             if (type == null) return Enumerable.Empty<PropertyInfo>();
             return type.GetProperties(bindingAttr).Concat(GetAllPropertiesIncludingInherited(type.BaseType));
         }
 
-        public static object GetValue(object target, string name,
-            BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance |
-                                       BindingFlags.Static, bool allowProperty = true, bool allowMethod = true)
+        public static object GetValue(object target, string name, BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static, bool allowProperty = true, bool allowMethod = true)
         {
             if (target == null) return null;
             Type type = target.GetType();
@@ -211,7 +177,6 @@ namespace Cainos.LucidEditor
 
                 type = type.BaseType;
             }
-
             return null;
         }
 
@@ -225,7 +190,6 @@ namespace Cainos.LucidEditor
             {
                 if (!enm.MoveNext()) return null;
             }
-
             return enm.Current;
         }
 
@@ -235,13 +199,10 @@ namespace Cainos.LucidEditor
             {
                 return cond;
             }
-
             return false;
         }
 
-        public static MemberInfo[] GetAllMembers(Type type,
-            BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance |
-                                       BindingFlags.Static, bool inherit = false)
+        public static MemberInfo[] GetAllMembers(Type type, BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static, bool inherit = false)
         {
             if (cacheAllMembers.ContainsKey((type, bindingAttr, inherit)))
             {
@@ -258,15 +219,12 @@ namespace Cainos.LucidEditor
                 {
                     memberInfos = type.GetMembers(bindingAttr);
                 }
-
                 cacheAllMembers.Add((type, bindingAttr, inherit), memberInfos);
                 return memberInfos;
             }
         }
 
-        private static IEnumerable<MemberInfo> GetAllMembersIncludingInherited(Type type,
-            BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance |
-                                       BindingFlags.Static)
+        private static IEnumerable<MemberInfo> GetAllMembersIncludingInherited(Type type, BindingFlags bindingAttr = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
         {
             if (type == null) return Enumerable.Empty<MemberInfo>();
             return type.GetMembers(bindingAttr).Concat(GetAllMembersIncludingInherited(type.BaseType));
@@ -299,7 +257,6 @@ namespace Cainos.LucidEditor
 
                 type = type.BaseType;
             }
-
             return false;
         }
 
@@ -309,8 +266,8 @@ namespace Cainos.LucidEditor
             {
                 return cond;
             }
-
             return false;
         }
     }
 }
+

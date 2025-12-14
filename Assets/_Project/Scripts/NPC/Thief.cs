@@ -31,7 +31,7 @@ public class Thief : MonoBehaviour
         {
             _wayPointsContainer?.ChangeCurrent();
             _agent.SetDestination(_wayPointsContainer.CurrentWayPoint.position);
-            _animatorHandler.SetAnimation(GetNormalizedSpeed());
+            _animatorHandler.SetMove(GetNormalizedSpeed());
         }
     }
 
@@ -40,7 +40,7 @@ public class Thief : MonoBehaviour
         _isDetected = isDetected;
 
         SetCurrentSpeed();
-        _animatorHandler.SetAnimation(GetNormalizedSpeed());
+        _animatorHandler.SetMove(GetNormalizedSpeed());
     }
     
     public void Init(WayPointsContainer wayPointsContainer)
@@ -55,7 +55,7 @@ public class Thief : MonoBehaviour
         _agent.SetDestination(_wayPointsContainer.CurrentWayPoint.position);
 
         _animatorHandler = GetComponent<AnimatorHandler>();
-        _animatorHandler.SetAnimation(GetNormalizedSpeed());
+        _animatorHandler.SetMove(GetNormalizedSpeed());
     }
 
     private void SetCurrentSpeed() =>

@@ -21,7 +21,6 @@ namespace Cainos.LucidEditor
                 TabGroupAttribute att = property.GetAttribute<TabGroupAttribute>();
                 if (!tabList.Contains(att.tabName)) tabList.Add(att.tabName);
             }
-
             tabArray = tabList.ToArray();
         }
 

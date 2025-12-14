@@ -12,12 +12,14 @@ namespace Cainos.LucidEditor
         internal static int horizontalGroupCount;
 
         public static float singleIndentWidth { get; set; } = 15f;
-
         public static float currentIndentWidth
         {
-            get { return EditorGUI.indentLevel * singleIndentWidth; }
+            get
+            {
+                return EditorGUI.indentLevel * singleIndentWidth;
+            }
         }
-
+        
         public static void PushIndentLevel(int indentLevel)
         {
             indentStack.Push(EditorGUI.indentLevel);

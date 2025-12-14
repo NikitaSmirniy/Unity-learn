@@ -9,7 +9,7 @@ namespace Cainos.LucidEditor
         public override void OnBeforeDrawProperty()
         {
             HorizontalLineAttribute horizontalLine = (HorizontalLineAttribute)attribute;
-
+            
             EditorGUILayout.Space(EditorGUIUtility.standardVerticalSpacing);
             if (horizontalLine.useCustomColor)
             {
@@ -19,7 +19,6 @@ namespace Cainos.LucidEditor
             {
                 LucidEditorGUILayout.Line(horizontalLine.color.ToColor());
             }
-
             EditorGUILayout.Space(EditorGUIUtility.standardVerticalSpacing);
         }
     }

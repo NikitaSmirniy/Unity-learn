@@ -25,9 +25,7 @@ namespace Cainos.LucidEditor
             {
                 if (t.IsDefined(typeof(CustomAttributeProcessorAttribute), false))
                 {
-                    CustomAttributeProcessorAttribute a =
-                        t.GetCustomAttributes(typeof(CustomAttributeProcessorAttribute), false)[0] as
-                            CustomAttributeProcessorAttribute;
+                    CustomAttributeProcessorAttribute a = t.GetCustomAttributes(typeof(CustomAttributeProcessorAttribute), false)[0] as CustomAttributeProcessorAttribute;
                     if (a.type == attribute.GetType())
                     {
                         PropertyProcessor processor = (PropertyProcessor)Activator.CreateInstance(t);
@@ -41,8 +39,7 @@ namespace Cainos.LucidEditor
             return null;
         }
 
-        public static PropertyGroupProcessor CreateGroupProcessor(InspectorPropertyGroup group,
-            SerializedObject serializedObject, PropertyGroupAttribute attribute)
+        public static PropertyGroupProcessor CreateGroupProcessor(InspectorPropertyGroup group, SerializedObject serializedObject, PropertyGroupAttribute attribute)
         {
             if (attribute == null) return null;
 
@@ -58,9 +55,7 @@ namespace Cainos.LucidEditor
             {
                 if (t.IsDefined(typeof(CustomGroupProcessorAttribute), false))
                 {
-                    CustomGroupProcessorAttribute a =
-                        t.GetCustomAttributes(typeof(CustomGroupProcessorAttribute), false)[0] as
-                            CustomGroupProcessorAttribute;
+                    CustomGroupProcessorAttribute a = t.GetCustomAttributes(typeof(CustomGroupProcessorAttribute), false)[0] as CustomGroupProcessorAttribute;
 
                     if (a.type == attribute.GetType())
                     {

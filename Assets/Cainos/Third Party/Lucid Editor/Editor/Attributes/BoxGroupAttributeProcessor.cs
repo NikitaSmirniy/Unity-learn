@@ -17,7 +17,7 @@ namespace Cainos.LucidEditor
         {
             LucidEditorGUILayout.EndBoxGroup();
             LucidEditorGUILayout.EndLayoutIndent();
-
+            
             EditorGUILayout.Space(2);
         }
     }

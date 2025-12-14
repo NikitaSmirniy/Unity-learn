@@ -10,21 +10,16 @@ namespace Cainos.LucidEditor
         public readonly bool useCustomColor;
         public readonly Color customColor;
 
-        public GUIColorAttribute()
-        {
-        }
-
+        public GUIColorAttribute() { }
         public GUIColorAttribute(InspectorColor color)
         {
             this.color = color;
         }
-
         public GUIColorAttribute(float r, float g, float b)
         {
             useCustomColor = true;
             customColor = new Color(r, g, b);
         }
-
         public GUIColorAttribute(float r, float g, float b, float a)
         {
             useCustomColor = true;

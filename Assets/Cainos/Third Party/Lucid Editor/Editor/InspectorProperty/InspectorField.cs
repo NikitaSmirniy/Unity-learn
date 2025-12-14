@@ -18,21 +18,30 @@ namespace Cainos.LucidEditor
 
         public bool hasChildren
         {
-            get { return _childProperties != null && _childProperties.Length > 0; }
+            get
+            {
+                return _childProperties != null && _childProperties.Length > 0;
+            }
         }
 
         public bool IsManagedReference
         {
-            get { return serializedProperty.propertyType == SerializedPropertyType.ManagedReference; }
+            get
+            {
+                return serializedProperty.propertyType == SerializedPropertyType.ManagedReference;
+            }
         }
 
         public bool IsObjectReference
         {
-            get { return serializedProperty.propertyType == SerializedPropertyType.ObjectReference; }
+            get
+            {
+                return serializedProperty.propertyType == SerializedPropertyType.ObjectReference;
+            }
+
         }
 
-        internal InspectorField(SerializedProperty property, Attribute[] attributes) : base(property.serializedObject,
-            property, property.GetParentObject(), property.name, attributes)
+        internal InspectorField(SerializedProperty property, Attribute[] attributes) : base(property.serializedObject, property, property.GetParentObject(), property.name, attributes)
         {
             this.displayName = property.displayName;
             InitializeChildProperties();
@@ -40,8 +49,7 @@ namespace Cainos.LucidEditor
 
         internal void InitializeChildProperties()
         {
-            _childProperties = InspectorPropertyUtil.GroupProperties(InspectorPropertyUtil.CreateChildProperties(this))
-                .ToArray();
+            _childProperties = InspectorPropertyUtil.GroupProperties(InspectorPropertyUtil.CreateChildProperties(this)).ToArray();
         }
 
         internal override void Initialize()
@@ -103,8 +111,7 @@ namespace Cainos.LucidEditor
 
                         if (!hasChildren)
                         {
-                            serializedProperty.isExpanded = EditorGUI.Foldout(foldoutRect,
-                                serializedProperty.isExpanded, displayName, true, EditorStyles.foldoutHeader);
+                            serializedProperty.isExpanded = EditorGUI.Foldout(foldoutRect, serializedProperty.isExpanded, displayName, true, EditorStyles.foldoutHeader);
                             if (serializedProperty.isExpanded)
                             {
                                 using (new EditorGUI.IndentLevelScope())
@@ -124,14 +131,12 @@ namespace Cainos.LucidEditor
                             using (new EditorGUI.IndentLevelScope())
                             {
                                 foldoutRect.xMin -= 4f;
-                                serializedProperty.isExpanded = EditorGUI.Foldout(foldoutRect,
-                                    serializedProperty.isExpanded, displayName, true, EditorStyles.foldoutHeader);
+                                serializedProperty.isExpanded = EditorGUI.Foldout(foldoutRect, serializedProperty.isExpanded, displayName, true, EditorStyles.foldoutHeader);
                             }
                         }
                         else
                         {
-                            serializedProperty.isExpanded = EditorGUI.Foldout(foldoutRect,
-                                serializedProperty.isExpanded, displayName, true, EditorStyles.foldoutHeader);
+                            serializedProperty.isExpanded = EditorGUI.Foldout(foldoutRect, serializedProperty.isExpanded, displayName, true, EditorStyles.foldoutHeader);
                         }
 
                         if (serializedProperty.isExpanded)
@@ -147,8 +152,7 @@ namespace Cainos.LucidEditor
                     }
                     else if (!IsManagedReference)
                     {
-                        if (_isInGroup && serializedProperty.isArray &&
-                            serializedProperty.propertyType != SerializedPropertyType.String) EditorGUI.indentLevel++;
+                        if (_isInGroup && serializedProperty.isArray && serializedProperty.propertyType != SerializedPropertyType.String) EditorGUI.indentLevel++;
 
                         GUIContent label;
                         if (hideLabel)
@@ -160,14 +164,12 @@ namespace Cainos.LucidEditor
                             label = new GUIContent(displayName);
                         }
 
-                        if (LucidEditorUtility.horizontalGroupCount > 0 &&
-                            serializedProperty.propertyType != SerializedPropertyType.Generic)
+                        if (LucidEditorUtility.horizontalGroupCount > 0 && serializedProperty.propertyType != SerializedPropertyType.Generic)
                         {
                             using (new EditorGUILayout.HorizontalScope())
                             {
                                 GUILayout.Label(label, GUILayout.MinWidth(50f));
-                                EditorGUILayout.PropertyField(serializedProperty, GUIContent.none, true,
-                                    GUILayout.MinWidth(0));
+                                EditorGUILayout.PropertyField(serializedProperty, GUIContent.none, true, GUILayout.MinWidth(0));
                             }
                         }
                         else
@@ -175,8 +177,8 @@ namespace Cainos.LucidEditor
                             EditorGUILayout.PropertyField(serializedProperty, label, true, GUILayout.MinWidth(0));
                         }
                     }
-
                     LucidEditorUtility.PopIndentLevel();
+
                 }
                 if (!isEditable) EditorGUI.EndDisabledGroup();
 
@@ -195,25 +197,23 @@ namespace Cainos.LucidEditor
             position.xMin += EditorGUIUtility.labelWidth;
 
             GUIContent buttonLabel = EditorIcons.CsScriptIcon;
-            buttonLabel.text = (property.serializedProperty.managedReferenceValue == null
-                                   ? "Null"
-                                   : property.serializedProperty.managedReferenceValue.GetType().Name) +
-                               $" ({GetManagedReferenceFieldTypeName(property.serializedProperty)})";
+            buttonLabel.text = (property.serializedProperty.managedReferenceValue == null ? "Null" : property.serializedProperty.managedReferenceValue.GetType().Name) +
+                $" ({GetManagedReferenceFieldTypeName(property.serializedProperty)})";
 
             if (GUI.Button(position, buttonLabel, EditorStyles.objectField))
             {
                 Type baseType = GetManagedReferenceFieldType(property.serializedProperty);
                 SerializeReferenceDropdown dropdown = new SerializeReferenceDropdown(
                     TypeCache.GetTypesDerivedFrom(baseType).Append(baseType).Where(p =>
-                        (p.IsPublic || p.IsNestedPublic) &&
-                        !p.IsAbstract &&
-                        !p.IsGenericType &&
-                        !typeof(UnityEngine.Object).IsAssignableFrom(p) &&
-                        Attribute.IsDefined(p, typeof(SerializableAttribute))
-                    ),
-                    maxTypePopupLineCount,
-                    new AdvancedDropdownState()
-                );
+                            (p.IsPublic || p.IsNestedPublic) &&
+                            !p.IsAbstract &&
+                            !p.IsGenericType &&
+                            !typeof(UnityEngine.Object).IsAssignableFrom(p) &&
+                            Attribute.IsDefined(p, typeof(SerializableAttribute))
+                        ),
+                        maxTypePopupLineCount,
+                        new AdvancedDropdownState()
+                    );
                 dropdown.onItemSelected += item =>
                 {
                     Type type = item.type;

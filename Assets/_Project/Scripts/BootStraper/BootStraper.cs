@@ -1,39 +1,27 @@
+using FSMTest;
 using UnityEngine;
 
 public class BootStraper : MonoBehaviour
 {
-    [Header("Thief Settings")]
-    [SerializeField] private Thief _thiefPrefab;
-    [SerializeField] private Transform _parentOfWayPoints;
-    
-    [Header("Siren System Handlers Settings")]
-    [SerializeField] private SirenSystemHandler _sirenSystemHandlerPrefab;
-    [SerializeField] private AudioClip _clip;
-    [SerializeField] private Transform _spawnPosition;
+    [SerializeField] private Player _player;
     
     private void Awake()
     {
-        CreateNPC();
+        InitPlayer();
     }
 
-    private void CreateNPC()
+    private void OnEnable()
     {
-        var newThief = Instantiate(_thiefPrefab, transform.position, Quaternion.identity);
-        newThief.Init(CreateWayPointsContainer());
-        newThief.gameObject.SetActive(true);
-        
-        var newSirenHandler = Instantiate(_sirenSystemHandlerPrefab, _spawnPosition.position, Quaternion.identity);
-        newSirenHandler.Init(_clip);
-        newSirenHandler.gameObject.SetActive(true);
+        _player.Enable();
     }
 
-    private WayPointsContainer CreateWayPointsContainer()
+    private void InitPlayer()
     {
-        var wayPoints = new Transform[_parentOfWayPoints.childCount];
+        InputService inputService = new InputService();
+        RotatorTransform rotatorTransform = new RotatorTransform();
+        Wallet wallet = new Wallet();
+        PlayerFsmFactory playerFsmFactory = new PlayerFsmFactory();
         
-        for (int i = 0; i < _parentOfWayPoints.childCount; i++)
-            wayPoints[i] = _parentOfWayPoints.GetChild(i).transform;
-
-        return new(wayPoints);
+        _player.Init(inputService, rotatorTransform, wallet, playerFsmFactory);
     }
 }
