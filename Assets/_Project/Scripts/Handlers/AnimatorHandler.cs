@@ -19,8 +19,11 @@ public class AnimatorHandler : MonoBehaviour
     }
 
     public void PlayJump() =>
-        _animator.SetTrigger(Jump);
+        _animator.SetBool(Jump, true);
 
+    public void StopJump() =>
+        _animator.SetBool(Jump, false);
+    
     public void PlayFalling(int isFalling) =>
         _animator.SetInteger(Falling, isFalling);
 

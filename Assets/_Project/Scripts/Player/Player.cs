@@ -9,12 +9,10 @@ namespace FSMTest
     public class Player : MonoBehaviour
     {
         [SerializeField] private float _walkSpeed;
-        [SerializeField] private float _runSpeed;
         [SerializeField] private float _jumpForce;
         [SerializeField] private ObstacleCheker _obstacleCheker;
         [SerializeField] private AnimatorHandler _animator;
 
-        private Rigidbody2D _rigidbody;
         private CoinsDetector _coinsDetector;
 
         private StateMachine _stateMachine;
@@ -23,11 +21,8 @@ namespace FSMTest
         private Wallet _wallet;
         private AudioPlayer _audioPlayer;
         private PlayerFsmFactory _playerFsmFactory;
-
-        private void Start()
-        {
-            
-        }
+        
+        public Rigidbody2D Rigidbody {get; private set;}
 
         public void Enable()
         {
@@ -52,20 +47,22 @@ namespace FSMTest
             coin.Interact();
         }
 
-        public void Init(InputService inputService, RotatorTransform rotatorTransform, Wallet wallet, PlayerFsmFactory playerFsmFactory)
+        public void Init(InputService inputService, RotatorTransform rotatorTransform, Wallet wallet ,PlayerFsmFactory playerFsmFactory)
         {
             _inputService = inputService;
             _rotatorTransform = rotatorTransform;
             _wallet = wallet;
             _playerFsmFactory = playerFsmFactory;
             
-            _rigidbody = GetComponent<Rigidbody2D>();
+            Rigidbody = GetComponent<Rigidbody2D>();
             _coinsDetector = GetComponent<CoinsDetector>();
             _audioPlayer = GetComponent<AudioPlayer>();
-
+            
+            Mover mover = new Mover(Rigidbody, Vector2.zero);
+            
             var context =
-                new PlayerFSMContext(_walkSpeed, _jumpForce, _obstacleCheker, _animator, _rigidbody,
-                    _inputService);
+                new PlayerFSMContext(_walkSpeed, _jumpForce, _obstacleCheker, _animator, Rigidbody,
+                    _inputService, mover);
 
             _stateMachine = _playerFsmFactory.Create(context);
         }

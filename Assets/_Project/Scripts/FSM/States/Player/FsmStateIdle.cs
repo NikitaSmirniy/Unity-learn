@@ -4,14 +4,12 @@ namespace FSMTest
 {
     public class FsmStateIdle : FsmState, IEnterableState
     {
-        private ObstacleCheker _obstacleCheker;
         private AnimatorHandler _animator;
         private Rigidbody2D _rigidbody;
 
-        public FsmStateIdle(IStateChanger stateChanger, ObstacleCheker obstacleCheker,
+        public FsmStateIdle(IStateChanger stateChanger,
             AnimatorHandler animator, Rigidbody2D rigidbody) : base(stateChanger)
         {
-            _obstacleCheker = obstacleCheker;
             _animator = animator;
             _rigidbody = rigidbody;
         }
@@ -24,9 +22,6 @@ namespace FSMTest
         public void Enter()
         {
             _animator.SetMove(0);
-
-            if (_obstacleCheker.IsGrounded())
-                _rigidbody.velocity = Vector2.zero;
         }
     }
 }

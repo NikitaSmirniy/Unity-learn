@@ -1,4 +1,5 @@
 using FSMTest;
+using UnityEngine;
 
 public class ToWalkStateTransition : Transition
 {
@@ -13,11 +14,11 @@ public class ToWalkStateTransition : Transition
 
     protected override bool CanTransit()
     {
-        var inputDirection = _inputService.ReadInput();
+        var directionOfInput = _inputService.ReadInput();
 
-        bool hasObstacle = _obstacleCheker.HasObstacle(inputDirection);
+        bool hasObstacle = _obstacleCheker.HasObstacle(directionOfInput);
         bool isGrounded = _obstacleCheker.IsGrounded();
 
-        return hasObstacle == false && isGrounded;
+        return Mathf.Approximately(directionOfInput.sqrMagnitude, 0) == false && hasObstacle == false && isGrounded;
     }
 }

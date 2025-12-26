@@ -21,7 +21,7 @@ public class ObstacleCheker : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(_checkPoint.position, _radius);
-        Gizmos.DrawRay(_checkPoint2.position, Vector2.right * _range);
+        //Gizmos.DrawWireSphere(_checkPoint.position, _radius);
+        //Gizmos.DrawRay(_checkPoint2.position, Vector2.right * _range);
     }
 }

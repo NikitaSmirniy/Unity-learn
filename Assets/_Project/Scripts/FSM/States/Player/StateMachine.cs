@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace FSMTest
 {
     public class StateMachine : IStateChanger

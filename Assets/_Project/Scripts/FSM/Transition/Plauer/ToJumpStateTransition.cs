@@ -13,7 +13,8 @@ public class ToJumpStateTransition : Transition
     protected override bool CanTransit()
     {
         bool isGrounded = _obstacleCheker.IsGrounded();
-        
-        return Input.GetKeyDown(KeyCode.Space) && isGrounded;
+        var jumpInput = Input.GetKeyDown(KeyCode.Space);
+
+        return jumpInput && isGrounded;
     }
 }

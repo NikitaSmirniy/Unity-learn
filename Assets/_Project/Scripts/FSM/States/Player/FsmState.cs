@@ -25,18 +25,19 @@ namespace FSMTest
 
         public void Update()
         {
+            OnUpdate();
+
             foreach (Transition transition in _transitions)
             {
                 if (transition.TryTransit(out FsmState nextState) == false)
                     continue;
 
                 _stateChange.ChangeState(nextState);
+                
                 return;
             }
-
-            OnUpdate();
         }
 
-        protected abstract void OnUpdate();
+        protected virtual void OnUpdate(){}
     }
 }

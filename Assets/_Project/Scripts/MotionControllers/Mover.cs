@@ -1,20 +1,36 @@
 using UnityEngine;
 
-public class Mover : MonoBehaviour
+public class Mover
 {
-    [SerializeField] private float _moveSpeed = 10;
+    private float _speed = 10;
 
-    public Transform TargetPosition { get; private set; }
+    private Vector2 _targetPosition;
+    public Rigidbody2D Rigidbody { get; private set; }
 
-    private void Update()
+    public Mover(Rigidbody2D rigidbody, Vector2 targetPosition)
     {
-        if (TargetPosition.position != Vector3.zero)
-            Move((TargetPosition.position - transform.position).normalized, _moveSpeed * Time.deltaTime);
+        Rigidbody = rigidbody;
+        _targetPosition = targetPosition;
     }
 
-    private void Move(Vector3 direction, float moveSpeed) =>
-        transform.position += (direction * moveSpeed);
+    public void Move(ForceMode2D forceMode = ForceMode2D.Force)
+    {
+        Rigidbody.AddForce(_targetPosition * _speed, forceMode);
+    }
 
-    public void SetTarget(Transform target) =>
-        TargetPosition = target;
+    public void Move(Vector2 direction, ForceMode2D forceMode = ForceMode2D.Force)
+    {
+        Vector2 distance = direction * _speed;
+        
+        Rigidbody.velocity = new Vector2(distance.x, distance.y + Rigidbody.velocity.y);
+    }
+
+    public void SetSpeed(float speed)
+    {
+        if (speed > 0)
+            _speed = speed;
+    }
+
+    public void SetTarget(Vector2 target) =>
+        _targetPosition = target;
 }

@@ -2,6 +2,6 @@
 {
     public interface IExitablePayloadState
     {
-
+        void Exit();
     }
 }
