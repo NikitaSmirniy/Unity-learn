@@ -6,6 +6,7 @@ namespace FSMTest
     [RequireComponent(typeof(ObstacleCheker))]
     [RequireComponent(typeof(CoinsDetector))]
     [RequireComponent(typeof(AudioPlayer))]
+    [RequireComponent(typeof(InputService))]
     public class Player : MonoBehaviour
     {
         [SerializeField] private float _walkSpeed;
@@ -36,20 +37,12 @@ namespace FSMTest
 
         private void Update()
         {
-            _rotatorTransform.Rotate(transform, _inputService.ReadInput());
+            _rotatorTransform.Rotate(transform, _inputService.Direction);
             _stateMachine.Update();
         }
 
-        private void OnTouched(Coin coin)
+        public void Init(RotatorTransform rotatorTransform, Wallet wallet ,PlayerFsmFactory playerFsmFactory)
         {
-            _wallet.Add(coin.Amount);
-            _audioPlayer.Play(coin.AudioClip);
-            coin.Interact();
-        }
-
-        public void Init(InputService inputService, RotatorTransform rotatorTransform, Wallet wallet ,PlayerFsmFactory playerFsmFactory)
-        {
-            _inputService = inputService;
             _rotatorTransform = rotatorTransform;
             _wallet = wallet;
             _playerFsmFactory = playerFsmFactory;
@@ -57,6 +50,7 @@ namespace FSMTest
             Rigidbody = GetComponent<Rigidbody2D>();
             _coinsDetector = GetComponent<CoinsDetector>();
             _audioPlayer = GetComponent<AudioPlayer>();
+            _inputService = GetComponent<InputService>();
             
             Mover mover = new Mover(Rigidbody, Vector2.zero);
             
@@ -65,6 +59,13 @@ namespace FSMTest
                     _inputService, mover);
 
             _stateMachine = _playerFsmFactory.Create(context);
+        }
+        
+        private void OnTouched(Coin coin)
+        {
+            _wallet.Add(coin.Amount);
+            _audioPlayer.Play(coin.AudioClip);
+            coin.Interact();
         }
     }
 }

@@ -53,12 +53,11 @@ public class BootStraper : MonoBehaviour
     {
         _createdPlayer = CreatePlayer();
 
-        InputService inputService = new InputService();
         RotatorTransform rotatorTransform = new RotatorTransform();
         Wallet wallet = new Wallet();
         PlayerFsmFactory playerFsmFactory = new PlayerFsmFactory();
 
-        _createdPlayer.Init(inputService, rotatorTransform, wallet, playerFsmFactory);
+        _createdPlayer.Init(rotatorTransform, wallet, playerFsmFactory);
         
         var createdCamera = Instantiate(_camera);
         createdCamera.Follow = _createdPlayer.transform;

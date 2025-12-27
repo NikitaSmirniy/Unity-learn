@@ -21,10 +21,8 @@ namespace FSMTest
         
         public void Enter()
         {
-            var inputDirection = _inputService.ReadInput();
-            
             _mover.SetSpeed(_speed);
-            Move(inputDirection);
+            Move(_inputService.Direction);
             _animator.PlayJump();
         }
 

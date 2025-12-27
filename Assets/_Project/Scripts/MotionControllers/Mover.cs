@@ -3,9 +3,7 @@ using UnityEngine;
 public class Mover
 {
     private float _speed = 10;
-
     private Vector2 _targetPosition;
-    public Rigidbody2D Rigidbody { get; private set; }
 
     public Mover(Rigidbody2D rigidbody, Vector2 targetPosition)
     {
@@ -13,6 +11,8 @@ public class Mover
         _targetPosition = targetPosition;
     }
 
+    public Rigidbody2D Rigidbody { get; private set; }
+    
     public void Move(ForceMode2D forceMode = ForceMode2D.Force)
     {
         Rigidbody.AddForce(_targetPosition * _speed, forceMode);

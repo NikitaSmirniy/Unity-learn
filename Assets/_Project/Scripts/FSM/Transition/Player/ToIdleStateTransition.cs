@@ -14,7 +14,7 @@ public class ToIdleStateTransition : Transition
 
     protected override bool CanTransit()
     {
-        var directionOfInput = _inputService.ReadInput();
+        var directionOfInput = _inputService.Direction;
 
         bool hasInput = directionOfInput.sqrMagnitude == 0;
         bool hasObstacle = _obstacleCheker.HasObstacle(directionOfInput);

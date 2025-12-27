@@ -38,16 +38,6 @@ public class Enemy : MonoBehaviour
         _stateMachine.Update();
     }
 
-    private void OnFoundTarget()
-    {
-        _target.position = _playerDetector.TouchedComponent.transform.position;
-    }
-
-    public void SetTarget(Transform target)
-    {
-        _target = target;
-    }
-    
     public void Init(RotatorTransform rotatorTransform,
         EnemyFsmFactory enemyFsmFactory, WayPointsContainer wayPointsContainer)
     {
@@ -66,5 +56,15 @@ public class Enemy : MonoBehaviour
             new EnemyFsmContext(mover, _runSpeed, _obstacleCheker, _animator, _playerDetector, _wayPointsContainer, 0.25f, _target, transform);
         
         _stateMachine = _enemyFsmFactory.Create(context);
+    }
+    
+    public void SetTarget(Transform target)
+    {
+        _target = target;
+    }
+
+    private void OnFoundTarget()
+    {
+        _target.position = _playerDetector.TouchedComponent.transform.position;
     }
 }

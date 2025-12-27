@@ -14,7 +14,7 @@ public class ToWalkStateTransition : Transition
 
     protected override bool CanTransit()
     {
-        var directionOfInput = _inputService.ReadInput();
+        var directionOfInput = _inputService.Direction;
 
         bool hasObstacle = _obstacleCheker.HasObstacle(directionOfInput);
         bool isGrounded = _obstacleCheker.IsGrounded();

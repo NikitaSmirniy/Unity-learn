@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace FSMTest
@@ -14,11 +15,11 @@ namespace FSMTest
 
         public void AddTransition(Transition transition)
         {
-            // if (transition == null)
-            //     throw new ArgumentNullException(nameof(transition));
-            //
-            // if (_transitions.Contains(transition))
-            //     throw new ArgumentException(nameof(transition));
+            if (transition == null)
+                throw new ArgumentNullException(nameof(transition));
+            
+            if (_transitions.Contains(transition))
+                throw new ArgumentException(nameof(transition));
 
             _transitions.Add(transition);
         }

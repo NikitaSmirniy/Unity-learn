@@ -14,7 +14,7 @@ namespace FSMTest
 
         protected override void OnUpdate()
         {
-            var inputDirection = _inputService.ReadInput();
+            var inputDirection = _inputService.Direction;
             var rbVelocity = _mover.Rigidbody.velocity.y;
             
             _animator.SetMove(inputDirection.sqrMagnitude);

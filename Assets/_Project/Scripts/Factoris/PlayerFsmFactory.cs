@@ -12,7 +12,7 @@ public class PlayerFsmFactory
 
         Transition toIdleTransition = new ToIdleStateTransition(idleState, context.InputService, context.ObstacleCheker);
         Transition toWalkTransition = new ToWalkStateTransition(walkState, context.InputService, context.ObstacleCheker);
-        Transition toJumpTransition = new ToJumpStateTransition(jumpState, context.ObstacleCheker);
+        Transition toJumpTransition = new ToJumpStateTransition(jumpState, context.ObstacleCheker, context.InputService);
 
         idleState.AddTransition(toJumpTransition);
         idleState.AddTransition(toWalkTransition);
