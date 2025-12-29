@@ -10,7 +10,7 @@ public abstract class TouchedDetector<T> : MonoBehaviour where T : MonoBehaviour
 
     public T TouchedComponent { get; private set; }
     
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (_isTouched == false && other.gameObject.TryGetComponent(out T result))
         {
@@ -21,7 +21,7 @@ public abstract class TouchedDetector<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (_isTouched && other.gameObject.TryGetComponent(out T _))
         {

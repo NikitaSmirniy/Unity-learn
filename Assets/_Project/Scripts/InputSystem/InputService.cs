@@ -6,18 +6,24 @@ public class InputService : MonoBehaviour
     private const string Horizontal = nameof(Horizontal);
 
     private bool _isJump;
+    private bool _isMouseDown;
     
     public Vector2 Direction {get; private set;}
 
     private void Update()
     {
-        Direction = ReadInput();
+        Direction = ReadDirectionInput();
 
         if (Input.GetKeyDown(KeyCode.Space))
             _isJump = true;
+        
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            _isMouseDown = true; 
     }
 
     public bool GetIsJump() => GetBoolAsTrigger(ref _isJump);
+    
+    public bool GetIsMouseDown() => GetBoolAsTrigger(ref _isMouseDown);
 
     private bool GetBoolAsTrigger(ref bool value)
     {
@@ -26,7 +32,7 @@ public class InputService : MonoBehaviour
         return localValue;
     }
     
-    private Vector2 ReadInput()
+    private Vector2 ReadDirectionInput()
     {
         var inputHorizontal = Input.GetAxis(Horizontal);
 

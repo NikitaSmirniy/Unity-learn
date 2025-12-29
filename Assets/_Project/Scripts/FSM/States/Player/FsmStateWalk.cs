@@ -4,12 +4,12 @@ namespace FSMTest
 {
     public class FsmStateWalk : FsmStateMoveByInput, IEnterableState
     {
-        private readonly AnimatorHandler _animator;
+        private readonly PlayerAnimatorHandler _playerAnimator;
 
         public FsmStateWalk(IStateChanger stateChanger, Mover mover, float speed, InputService inputService,
-            AnimatorHandler animator) : base(stateChanger, mover, speed, inputService)
+            PlayerAnimatorHandler playerAnimator) : base(stateChanger, mover, speed, inputService)
         {
-            _animator = animator;
+            _playerAnimator = playerAnimator;
         }
 
         protected override void OnUpdate()
@@ -17,8 +17,8 @@ namespace FSMTest
             var inputDirection = _inputService.Direction;
             var rbVelocity = _mover.Rigidbody.velocity.y;
             
-            _animator.SetMove(inputDirection.sqrMagnitude);
-            _animator.PlayFalling((int)rbVelocity);
+            _playerAnimator.SetMove(inputDirection.sqrMagnitude);
+            _playerAnimator.PlayFalling((int)rbVelocity);
 
             Move(inputDirection);
         }

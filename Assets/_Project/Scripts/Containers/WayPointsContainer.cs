@@ -15,6 +15,5 @@ public class WayPointsContainer
     public void ChangeCurrent()
     {
         _currentIndex = ++_currentIndex % _points.Length;
-        Debug.Log(_currentIndex);
     }
 }

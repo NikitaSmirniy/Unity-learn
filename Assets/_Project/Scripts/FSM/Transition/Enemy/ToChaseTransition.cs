@@ -1,4 +1,5 @@
 using FSMTest;
+using UnityEngine;
 
 public class ToChaseTransition : Transition
 {
@@ -11,6 +12,6 @@ public class ToChaseTransition : Transition
 
     protected override bool CanTransit()
     {
-        return _playerDetector.TouchedComponent;
+        return _playerDetector.TouchedComponent != null;
     }
 }

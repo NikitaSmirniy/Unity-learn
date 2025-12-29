@@ -4,32 +4,32 @@ namespace FSMTest
 {
     public class FsmStateJump : FsmStateMoveByInput, IEnterableState, IExitableState
     {
-        private readonly AnimatorHandler _animator;
+        private readonly PlayerAnimatorHandler _playerAnimator;
 
         public FsmStateJump(IStateChanger stateChanger, Mover mover, float speed, InputService inputService,
-            AnimatorHandler animator) : base(stateChanger, mover, speed, inputService)
+            PlayerAnimatorHandler playerAnimator) : base(stateChanger, mover, speed, inputService)
         {
-            _animator = animator;
+            _playerAnimator = playerAnimator;
         }
 
         protected override void OnUpdate()
         {
             var rbVelocity = _mover.Rigidbody.velocity.y;
             
-            _animator.PlayFalling((int)rbVelocity);
+            _playerAnimator.PlayFalling((int)rbVelocity);
         }
         
         public void Enter()
         {
             _mover.SetSpeed(_speed);
             Move(_inputService.Direction);
-            _animator.PlayJump();
+            _playerAnimator.PlayJump();
         }
 
         public void Exit()
         {
-            _animator.StopJump();
-            _animator.PlayFalling((int)_mover.Rigidbody.velocity.y);
+            _playerAnimator.StopJump();
+            _playerAnimator.PlayFalling((int)_mover.Rigidbody.velocity.y);
         }
         
         protected override void Move(Vector2 inputDirection)
