@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 032c17e4c5cdbe44a86e5a176125a408, type: 3}
+  m_Name: ClipsSO
+  m_EditorClassIdentifier: 
+  _healClip: {fileID: 8300000, guid: d6d20a5e288914a43a8f8d6b4e2ef2ca, type: 3}
+  _coinClip: {fileID: 8300000, guid: 9e0887d3420e18d4b810a7dfd9f277c9, type: 3}
+  _deathClip: {fileID: 8300000, guid: f7368d23fd9e2bc4dab75a688ea1fdaa, type: 3}

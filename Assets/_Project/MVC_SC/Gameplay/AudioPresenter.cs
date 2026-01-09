@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace AudioMixer
@@ -5,14 +6,21 @@ namespace AudioMixer
     public class AudioPresenter : MonoBehaviour
     {
         [SerializeField] private AudioPlayer _audioPlayer;
-        [SerializeField] private AudioButtonsView buttonsView;
+        [SerializeField] private ButtonsView buttonsView;
         [SerializeField] private AudioClipsContainer _audioClipsContainer;
 
         private void OnEnable()
         {
-            buttonsView.HealButtonClicked.AddListener(OnHealButtonClicked);
+            buttonsView.HealButton.AddListener(OnHealButtonClicked);
             buttonsView.CoinButtonClicked.AddListener(OnCoinButtonClicked);
             buttonsView.DeathButtonClicked.AddListener(OnDeathButtonClicked);
+        }
+
+        private void OnDisable()
+        {
+            buttonsView.HealButton.RemoveListener(OnHealButtonClicked);
+            buttonsView.CoinButtonClicked.RemoveListener(OnCoinButtonClicked);
+            buttonsView.DeathButtonClicked.RemoveListener(OnDeathButtonClicked);
         }
 
         private void OnHealButtonClicked() =>

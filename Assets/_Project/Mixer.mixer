@@ -6,7 +6,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI
+  m_Name: View
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 18e9aee58bc49d04fb8305abc80d70fe
   m_Children: []
@@ -50,11 +50,11 @@ AudioMixerController:
   m_UpdateMode: 0
   m_ExposedParameters:
   - guid: 6b1032fd2fc2b844fba8d65fee99315a
-    name: GeneralVolume
+    name: Master
   - guid: f2812c3e321cb3e4e8f5926b66e857b6
-    name: MusicVolume
+    name: Music
   - guid: f38eeec32204831409b38f45b68a7126
-    name: SoundsVolume
+    name: View
   m_AudioMixerGroupViews:
   - guids:
     - 13ade6a9eddc6d84580e633652d490f0

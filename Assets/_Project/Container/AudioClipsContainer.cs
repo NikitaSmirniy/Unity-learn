@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace AudioMixer
 {
-    public class AudioClipsContainer : MonoBehaviour
+    [CreateAssetMenu(fileName = "New Audio Clip Container", menuName = "Audio Clip Container", order = 51)]
+    public class AudioClipsContainer : ScriptableObject
     {
         [SerializeField] private AudioClip _healClip;
         [SerializeField] private AudioClip _coinClip;
