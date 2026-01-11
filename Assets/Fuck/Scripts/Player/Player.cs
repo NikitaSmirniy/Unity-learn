@@ -9,14 +9,14 @@ namespace FSMTest
     [RequireComponent(typeof(MedKitDetector))]
     [RequireComponent(typeof(AudioPlayer))]
     [RequireComponent(typeof(InputService))]
-    [RequireComponent(typeof(PlayerHealthHandler))]
+    [RequireComponent(typeof(PlayerHealth))]
     public class Player : MonoBehaviour
     {
         [SerializeField] private float _walkSpeed;
         [SerializeField] private float _jumpForce;
         [SerializeField] private ObstacleCheker _obstacleCheker;
         [SerializeField] private PlayerAnimatorHandler playerAnimator;
-        [SerializeField] private PlayerHealthHandler _playerHealthHandler;
+        [SerializeField] private PlayerHealth playerHealth;
 
         private CoinsDetector _coinsDetector;
         private MedKitDetector _medKitDetector;
@@ -58,9 +58,9 @@ namespace FSMTest
             _medKitDetector = GetComponent<MedKitDetector>();
             _audioPlayer = GetComponent<AudioPlayer>();
             _inputService = GetComponent<InputService>();
-            _playerHealthHandler = GetComponent<PlayerHealthHandler>();
+            playerHealth = GetComponent<PlayerHealth>();
             
-            _playerHealthHandler.Init(health);
+            playerHealth.Init(health);
             
             Mover mover = new Mover(Rigidbody);
             
@@ -80,7 +80,7 @@ namespace FSMTest
         
         private void OnMedKitTouched(MedKit medKit)
         {
-            _playerHealthHandler.Heal(medKit.Amount);
+            playerHealth.Cure(medKit.Amount);
             _audioPlayer.Play(medKit.AudioClip);
             medKit.Interact();
         }

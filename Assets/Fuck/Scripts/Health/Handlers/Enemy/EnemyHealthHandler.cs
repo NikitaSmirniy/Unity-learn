@@ -12,9 +12,9 @@ public class EnemyHealthHandler : MonoBehaviour, IDamageable
 
     public event Action<float> ChangedValue;
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float amount)
     {
-        _health.Value -= damage;
-        ChangedValue?.Invoke(_health.Value);
+       // _health.Value -= amount;
+        //ChangedValue?.Invoke(_health.Value);
     }
 }
