@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Fuck/Scenes/IJScene.unity
+    path: Assets/_pROJECT/Scenes/IJScene.unity
     guid: 3808fbf2a115fad438e75f5771341094
   m_configObjects: {}
