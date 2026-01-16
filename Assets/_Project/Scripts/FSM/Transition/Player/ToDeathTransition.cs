@@ -11,6 +11,6 @@ public class ToDeathTransition : Transition
 
     protected override bool CanTransit()
     {
-        return _health.Value == 0;
+        return _health.Value == 0f;
     }
 }

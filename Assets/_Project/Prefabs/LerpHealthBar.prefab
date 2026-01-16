@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d55ff94d35ab45245a4e6facb94838de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lerpSpeed: 3
+  _lerpSpeed: 6
 --- !u!223 &4404103662307768329
 Canvas:
   m_ObjectHideFlags: 0

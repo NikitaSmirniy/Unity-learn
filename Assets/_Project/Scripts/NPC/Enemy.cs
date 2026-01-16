@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D _rigidbody;
 
     private StateMachine _stateMachine;
+    
     public Transform Target { get; private set; }
 
     public void Enable()

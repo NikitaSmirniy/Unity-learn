@@ -10,6 +10,8 @@ public class InputService : MonoBehaviour
     
     public Vector2 Direction {get; private set;}
 
+    public event Action OnAbillityKeyDown;
+    
     private void Update()
     {
         Direction = ReadDirectionInput();
@@ -17,8 +19,11 @@ public class InputService : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             _isJump = true;
         
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
             _isMouseDown = true; 
+        
+        if (Input.GetKeyDown(KeyCode.R))
+            OnAbillityKeyDown?.Invoke(); 
     }
 
     public bool GetIsJump() => GetBoolAsTrigger(ref _isJump);

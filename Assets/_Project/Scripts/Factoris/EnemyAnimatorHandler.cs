@@ -6,14 +6,14 @@ public class EnemyAnimatorHandler : MonoBehaviour
     private const string AttackAnimatorParameter = "Attack";
     private const string ChaseAnimatorParameter = "Chase";
     private const string PatrollAnimatorParameter = "Patroll";
-    private const string DeathAnimatorParameter = "Death";
     private const string IsDeathAnimatorParameter = "IsDeath";
+    private const string DeathAnimatorParameter = "Death";
 
     private readonly int Attack = Animator.StringToHash(AttackAnimatorParameter);
     private readonly int Chase = Animator.StringToHash(ChaseAnimatorParameter);
     private readonly int Patroll = Animator.StringToHash(PatrollAnimatorParameter);
-    private readonly int Death = Animator.StringToHash(DeathAnimatorParameter);
     private readonly int IsDeath = Animator.StringToHash(IsDeathAnimatorParameter);
+    private readonly int Death = Animator.StringToHash(DeathAnimatorParameter);
 
     private Animator _animator;
 

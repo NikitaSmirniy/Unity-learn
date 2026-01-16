@@ -29,6 +29,8 @@ namespace FSMTest
         private AudioPlayer _audioPlayer;
         
         public Rigidbody2D Rigidbody {get; private set;}
+        public InputService InputService => _inputService;
+        public PlayerHealth PlayerHealth => _playerHealth;
 
         public void Enable()
         {
