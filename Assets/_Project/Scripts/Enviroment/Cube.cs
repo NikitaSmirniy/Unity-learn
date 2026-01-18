@@ -13,8 +13,12 @@ public class Cube : MonoBehaviour
     private Renderer _renderer;
     private Rigidbody _rigidbody;
     private TouchedDetector _touchedDetector;
+
+    private Coroutine _liveTimer;
+
+    public event Action<Cube> Dead;
     
-    public event Action<Cube> Lived;
+    public Rigidbody Rigidbody => _rigidbody;
 
     private void Awake()
     {
@@ -42,14 +46,20 @@ public class Cube : MonoBehaviour
         _touchedDetector.SetDefault();
     }
 
-    private void StartLiveTime() => StartCoroutine(StartCounter());
+    private void StartLiveTime()
+    {
+        if (_liveTimer == null)
+            _liveTimer = StartCoroutine(StartCounter());
+    }
 
     private IEnumerator StartCounter()
     {
         _renderer.material.color = Color.yellow;
 
         yield return new WaitForSeconds(Random.Range(_minLiveTime, _maxLiveTime));
-
-        Lived?.Invoke(this);
+        
+        _liveTimer = null;
+        
+        Dead?.Invoke(this);
     }
 }

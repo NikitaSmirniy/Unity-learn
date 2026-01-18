@@ -1,18 +1,18 @@
 using System;
 using UnityEngine;
 
-public abstract class TouchedDetector<T> : MonoBehaviour where T : MonoBehaviour 
+public class TouchedDetector : MonoBehaviour
 {
     private bool _isTouched;
 
-    public event Action<T> Touched;
+    public event Action Touched;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (_isTouched == false && other.gameObject.TryGetComponent(out T result))
+        if (_isTouched == false && other.gameObject.TryGetComponent(out Ground _))
         {
             _isTouched = true;
-            Touched?.Invoke(result);
+            Touched?.Invoke();
         }
     }
 
