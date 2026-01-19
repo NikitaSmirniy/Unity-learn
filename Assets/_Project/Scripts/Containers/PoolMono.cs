@@ -72,7 +72,7 @@ public class PoolMono<T> : IPoolMonoModel where T : MonoBehaviour
             return _pool.Dequeue();
         }
 
-        throw new System.Exception("There is no free elements in pool");
+        throw new Exception("There is no free elements in pool");
     }
     
     public int GetActiveObjectsCount()

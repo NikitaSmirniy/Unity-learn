@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public interface ICorouitinesRunner
+public interface ICoroutinesRunner
 {
     Coroutine StartRoutine(IEnumerator enumerator);
 }

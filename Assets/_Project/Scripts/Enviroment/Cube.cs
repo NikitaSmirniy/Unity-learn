@@ -5,26 +5,24 @@ using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(TouchedDetector))]
-public class Cube : MonoBehaviour
+public class Cube : UnitBase
 {
     [SerializeField] private float _minLiveTime = 2;
     [SerializeField] private int _maxLiveTime = 5;
 
     private Renderer _renderer;
-    private Rigidbody _rigidbody;
+    
     private TouchedDetector _touchedDetector;
 
     private Coroutine _liveTimer;
-
+    
     public event Action<Cube> Dead;
     
-    public Rigidbody Rigidbody => _rigidbody;
-
     private void Awake()
     {
         _renderer = GetComponent<Renderer>();
         _touchedDetector = GetComponent<TouchedDetector>();
-        _rigidbody = GetComponent<Rigidbody>();
+        Rigidbody = GetComponent<Rigidbody>();
         SetDefaultValues();
     }
 
@@ -41,7 +39,7 @@ public class Cube : MonoBehaviour
     public void SetDefaultValues()
     {
         _renderer.material.color = Color.cyan;
-        _rigidbody.velocity = Vector3.zero;
+        Rigidbody.velocity = Vector3.zero;
         transform.rotation = Quaternion.identity;
         _touchedDetector.SetDefault();
     }

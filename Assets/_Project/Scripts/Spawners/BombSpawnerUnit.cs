@@ -1,20 +1,20 @@
-public class BombSpawner : SpawnerBase<Bomb>
+public class BombSpawnerUnit : SpawnerUnitBase<Bomb>
 {
     public void Spawn(Cube cube)
     {
         var freeBomb = PoolMono.GetFreeEelement();
 
-        freeBomb.Exploded += OnExploded;
+        freeBomb.Dead += OnDead;
         freeBomb.gameObject.SetActive(true);
         freeBomb.transform.position = cube.transform.position;
-        freeBomb.Explode();
+        freeBomb.StartExplodeTimer();
         
         AddCreatedObjectsCount();
     }
     
-    private void OnExploded(Bomb bomb)
+    private void OnDead(Bomb bomb)
     {
-        bomb.Exploded -= OnExploded;
+        bomb.Dead -= OnDead;
         bomb.gameObject.SetActive(false);
         PoolMono.TakeElement(bomb);
     }

@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace _Project._Scripts
 {
-    public class CubeSpawner : SpawnerBase<Cube>
+    public class CubeSpawnerUnit : SpawnerUnitBase<Cube>
     {
         [SerializeField] private float _delay;
         [SerializeField] private bool _isWorking = true;
-        [SerializeField] private BombSpawner _bombSpawner;
+        [SerializeField] private BombSpawnerUnit _bombSpawnerUnit;
 
         private RandomPositionGenerator _randomPositionGenerator;
 
@@ -24,10 +24,9 @@ namespace _Project._Scripts
             {
                 yield return new WaitForSeconds(_delay);
                 
-                var freeCube = PoolMono.GetFreeEelement();
+                Cube freeCube = PoolMono.GetFreeEelement();
                 freeCube.transform.position = _randomPositionGenerator.Generate();
                 freeCube.Dead += OnCubeDead;
-                freeCube.Dead += _bombSpawner.Spawn;
                 freeCube.gameObject.SetActive(true);
                 freeCube.SetDefaultValues();
                 
@@ -38,8 +37,8 @@ namespace _Project._Scripts
         private void OnCubeDead(Cube cube)
         {
             cube.Dead -= OnCubeDead;
-            cube.Dead -= _bombSpawner.Spawn;
             cube.gameObject.SetActive(false);
+            _bombSpawnerUnit.Spawn(cube);
             PoolMono.TakeElement(cube);
         }
     }

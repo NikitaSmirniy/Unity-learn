@@ -10,21 +10,21 @@ public class Timer : IValueChangableObserver
     private float _maxRandomTimerTime = 5;
 
     private Coroutine _coroutine;
-    private ICorouitinesRunner _corouitinesRunner;
-
+    private ICoroutinesRunner _coroutinesRunner;
+    
     public event Action<float> ValueChanged;
 
-    public Timer(TimerData timerData, ICorouitinesRunner corouitinesRunner)
+    public Timer(TimerConfig timerConfig, ICoroutinesRunner coroutinesRunner)
     {
-        _minRandomTimerTime = timerData.MinRandomTimerTime;
-        _maxRandomTimerTime = timerData.MaxRandomTimerTime;
-        _corouitinesRunner = corouitinesRunner;
+        _minRandomTimerTime = timerConfig.MinRandomTimerTime;
+        _maxRandomTimerTime = timerConfig.MaxRandomTimerTime;
+        _coroutinesRunner = coroutinesRunner;
     }
 
     public void StartTimer(Action action)
     {
         if (_coroutine == null)
-            _coroutine = _corouitinesRunner.StartRoutine(TimerRoutine(action));
+            _coroutine = _coroutinesRunner.StartRoutine(TimerRoutine(action));
     }
 
     private IEnumerator TimerRoutine(Action action)

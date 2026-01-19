@@ -1,19 +1,19 @@
 using System;
 using UnityEngine;
 
-public abstract class SpawnerBase<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class SpawnerUnitBase<T> : MonoBehaviour where T : UnitBase
 {
     [SerializeField] protected T Prefab;
     [SerializeField] protected int StartPoolCubesCount = 3;
     [SerializeField] protected bool AutoExpand;
-    
-    private int _spawnedOjectsCount;
+
+    private int _spawnedObjectsCount;
 
     protected PoolMono<T> PoolMono;
-    
+
     public IPoolMonoModel PoolMonoModel;
-    
-    public int SpawnedOjectsCount => _spawnedOjectsCount;
+
+    public int SpawnedObjectsCount => _spawnedObjectsCount;
 
     public event Action SpawnedObjectsCountChanged;
 
@@ -25,7 +25,7 @@ public abstract class SpawnerBase<T> : MonoBehaviour where T : MonoBehaviour
 
     protected void AddCreatedObjectsCount()
     {
-        _spawnedOjectsCount++;
+        _spawnedObjectsCount++;
         SpawnedObjectsCountChanged?.Invoke();
     }
 }

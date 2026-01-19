@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5187250340425245166}
   - component: {fileID: 5187250340425245160}
   - component: {fileID: 5187250340425245163}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,11 +128,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf13636238319b24fbd071a86d155bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Rigidbody>k__BackingField: {fileID: 0}
   _layerMask:
     serializedVersion: 2
     m_Bits: 128
   _colorRenderer: {fileID: 5187250340425245163}
-  _timerData: {fileID: 11400000, guid: 231401157ad2f6b46b92efe3230b5f5f, type: 2}
+  timerConfig: {fileID: 11400000, guid: 231401157ad2f6b46b92efe3230b5f5f, type: 2}
   _force: 2500
   _radius: 20
 --- !u!114 &5187250340425245163
