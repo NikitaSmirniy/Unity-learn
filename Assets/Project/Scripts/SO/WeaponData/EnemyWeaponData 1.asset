@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db3b3f2bbce1dac4e88c2367891c39a7, type: 3}
+  m_Name: EnemyWeaponData 1
+  m_EditorClassIdentifier: 
+  <BulletConfig>k__BackingField: {fileID: 11400000, guid: 3d92911f0738cea448752bc5d794a459, type: 2}
+  <AudioClip>k__BackingField: {fileID: 8300000, guid: 6b2b895ea7070af40bff29d0de6ce19d, type: 3}
