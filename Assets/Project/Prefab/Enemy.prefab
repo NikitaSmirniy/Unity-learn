@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6989619773427313764}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,9 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponData: {fileID: 11400000, guid: 89bfb646035a87e46be438255dcf9ed7, type: 2}
-  _muzzlePoint: {fileID: 6989619773427313764}
-  _isWorking: 1
-  _duration: 1.5
+  MuzzlePoint: {fileID: 6989619773427313764}
 --- !u!61 &2259470619518101485
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -225,6 +223,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 15
+  _shootDelay: 1.5
+  _isShooting: 1
 --- !u!82 &2268505642292792001
 AudioSource:
   m_ObjectHideFlags: 0

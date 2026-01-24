@@ -1,6 +1,6 @@
 using System;
 
-public class ScoreCounter : IValueChangedPublisher
+public class ScoreCounter : IValueChangedPublisher, IDisposable
 {
     private HitObserver _hitObserver;
     private int _value;
@@ -17,5 +17,10 @@ public class ScoreCounter : IValueChangedPublisher
     {
         _value++;
         ValueChanged?.Invoke(_value);
+    }
+
+    public void Dispose()
+    {
+        _hitObserver.Hit -= Add;
     }
 }

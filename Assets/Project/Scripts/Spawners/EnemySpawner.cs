@@ -41,16 +41,21 @@ public class EnemySpawner : SpawnerBase<Enemy>, IHitPublisher
             freeEnemy.transform.position = _spawnPoint.position +
                                            new Vector3(0, Random.Range(_minSpawnOffsetY, _maxSpawnOffsetY), 0);
             freeEnemy.gameObject.SetActive(true);
-            freeEnemy.Shoot();
             freeEnemy.Dead += OnDead;
+            freeEnemy.Hit += OnHit;
         }
+    }
+
+    private void OnHit(IHitable hitable)
+    {
+        hitable.Hit -= OnHit;
+        Hit?.Invoke(hitable);
     }
 
     private void OnDead(Enemy enemy)
     {
         enemy.Dead -= OnDead;
         enemy.gameObject.SetActive(false);
-        Hit?.Invoke(enemy);
         Pool.TakeElement(enemy);
     }
 }

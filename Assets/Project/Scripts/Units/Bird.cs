@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(DetectorObstacle))]
 [RequireComponent(typeof(InputSystem))]
 [RequireComponent(typeof(Weapon))]
-public class Bird : MonoBehaviour, IDamageable, IGameOverPublisher
+public class Bird : MonoBehaviour, IDamageable, IDeathPublisher
 {
     [SerializeField] private float _tapForce;
 
@@ -15,7 +15,7 @@ public class Bird : MonoBehaviour, IDamageable, IGameOverPublisher
 
     private LerpRotator _lerpRotator;
 
-    public event Action<GameObject> GameOver;
+    public event Action Dead;
 
     private void Awake()
     {
@@ -25,27 +25,27 @@ public class Bird : MonoBehaviour, IDamageable, IGameOverPublisher
         _weapon = GetComponent<Weapon>();
     }
 
-    private void Start()
-    {
-        _weapon.StartShootRoutine();
-    }
-
     private void OnEnable()
     {
-        _detector.Detected += OnDetected;
+        _detector.Detected += OnObstacleDetected;
         _inputSystem.MoveMouseButtonDown += Move;
     }
 
     private void OnDisable()
     {
-        _detector.Detected -= OnDetected;
+        _detector.Detected -= OnObstacleDetected;
         _inputSystem.MoveMouseButtonDown -= Move;
     }
 
     private void Update()
     {
         if (_mover.Rigidbody2D.velocity.y <= 0)
-            _lerpRotator.MinRotate(transform);
+            _lerpRotator.RotateToMinPosition(transform);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            _weapon.Shoot();
+        }
     }
 
     public void Init(LerpRotator lerpRotator, BulletSpawner bulletSpawner)
@@ -57,16 +57,16 @@ public class Bird : MonoBehaviour, IDamageable, IGameOverPublisher
     private void Move()
     {
         _mover.Move(Vector2.up * _tapForce);
-        _lerpRotator.MaxRotate(transform);
+        _lerpRotator.RotateToMaxPosition(transform);
     }
 
-    private void OnDetected(Obstacle _)
+    private void OnObstacleDetected(Obstacle _)
     {
-        Damage();
+        Dead?.Invoke();
     }
-    
-    public void Damage()
+
+    public void TakeDamage()
     {
-        GameOver?.Invoke(this.gameObject);
+        Dead?.Invoke();
     }
 }

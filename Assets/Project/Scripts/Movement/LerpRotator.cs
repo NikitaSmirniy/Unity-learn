@@ -19,12 +19,12 @@ public class LerpRotator
         _minRotation = Quaternion.Euler(0, 0, _minRotationZoneZ);
     }
 
-    public void MaxRotate(Transform transform)
+    public void RotateToMaxPosition(Transform transform)
     {
         transform.rotation = _maxRotation;
     }
     
-    public void MinRotate(Transform transform)
+    public void RotateToMinPosition(Transform transform)
     {
          transform.rotation = Quaternion.Lerp(transform.rotation, _minRotation, _rotationSpeed * Time.deltaTime);
     }

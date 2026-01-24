@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
         _detectorDamageable = GetComponent<DetectorDamageable>();
         _detectorObstacle = GetComponent<DetectorObstacle>();
         _renderer = GetComponent<SpriteRenderer>();
-        
+
         _renderer.sprite = _bulletConfig.Sprite;
         _speed = _bulletConfig.Speed;
     }
@@ -42,18 +42,16 @@ public class Bullet : MonoBehaviour
 
     public void FlyOutToDirection(Vector2 direction)
     {
-        if (direction != null)
+        if (direction != Vector2.zero)
+        {
             SetDirection(direction);
-    }
-
-    private void Update()
-    {
-        Move();
+            Move();
+        }
     }
 
     private void Move()
     {
-        _mover.Move(_direction * _speed * Time.deltaTime);
+        _mover.Move(_direction * _speed * Time.fixedDeltaTime);
     }
 
     private void SetDirection(Vector2 direction)
@@ -63,7 +61,7 @@ public class Bullet : MonoBehaviour
 
     private void PerformDamage(IDamageable damageable)
     {
-        damageable.Damage();
+        damageable.TakeDamage();
     }
 
     private void OnDamageableDetected(IDamageable damageable)

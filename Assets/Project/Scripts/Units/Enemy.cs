@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Mover))]
@@ -7,10 +8,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageable, IHitable
 {
     [SerializeField] private float _speed;
+    [SerializeField] private float _shootDelay;
+    [SerializeField] private bool _isShooting;
 
     private DetectorObstacle _detectorObstacle;
     private Mover _mover;
-    private float _currentTimerTime;
+    private WaitForSeconds _wait;
 
     public event Action<Enemy> Dead;
     public event Action<IHitable> Hit;
@@ -22,16 +25,20 @@ public class Enemy : MonoBehaviour, IDamageable, IHitable
         _mover = GetComponent<Mover>();
         Weapon = GetComponent<Weapon>();
         _detectorObstacle = GetComponent<DetectorObstacle>();
+
+        _wait = new WaitForSeconds(_shootDelay);
     }
 
     private void OnEnable()
     {
         _detectorObstacle.Detected += OnObstacleDetected;
+        StartCoroutine(ShootRoutine());
     }
 
     private void OnDisable()
     {
         _detectorObstacle.Detected -= OnObstacleDetected;
+        StopCoroutine(ShootRoutine());
     }
 
     private void Update()
@@ -39,25 +46,24 @@ public class Enemy : MonoBehaviour, IDamageable, IHitable
         _mover.Move(Vector2.left * _speed);
     }
 
-    public void Damage()
+    public void TakeDamage()
     {
-        OnDead();
+        Hit?.Invoke(this);
+        Dead?.Invoke(this);
     }
 
-    public void Shoot()
+    private IEnumerator ShootRoutine()
     {
-        Weapon.StartShootRoutine();
+        while (_isShooting)
+        {
+            yield return _wait;
+
+            Weapon.Shoot();
+        }
     }
 
     private void OnObstacleDetected(Obstacle obstacle)
     {
-        OnDead();
-    }
-
-    private void OnDead()
-    {
-        Hit?.Invoke(this);
         Dead?.Invoke(this);
-        Weapon.Reset();
     }
 }
