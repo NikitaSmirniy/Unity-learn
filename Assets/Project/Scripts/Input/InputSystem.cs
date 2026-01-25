@@ -5,13 +5,15 @@ public class InputSystem : MonoBehaviour
 {
     private const int LeftMouseButton = 0;
 
-    public event Action MoveMouseButtonDown;
+    public event Action MouseButtonDown;
+    public event Action SpaceKeyDown;
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(LeftMouseButton))
-        {
-            MoveMouseButtonDown?.Invoke();
-        }
+            MouseButtonDown?.Invoke();
+
+        if (Input.GetKey(KeyCode.Space))
+            SpaceKeyDown?.Invoke();
     }
 }

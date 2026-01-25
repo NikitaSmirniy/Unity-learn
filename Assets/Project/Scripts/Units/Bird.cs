@@ -28,30 +28,38 @@ public class Bird : MonoBehaviour, IDamageable, IDeathPublisher
     private void OnEnable()
     {
         _detector.Detected += OnObstacleDetected;
-        _inputSystem.MoveMouseButtonDown += Move;
+        _inputSystem.SpaceKeyDown += Move;
+        _inputSystem.MouseButtonDown += OnShoot;
     }
 
     private void OnDisable()
     {
         _detector.Detected -= OnObstacleDetected;
-        _inputSystem.MoveMouseButtonDown -= Move;
+        _inputSystem.SpaceKeyDown -= Move;
+        _inputSystem.MouseButtonDown -= OnShoot;
     }
 
     private void Update()
     {
         if (_mover.Rigidbody2D.velocity.y <= 0)
             _lerpRotator.RotateToMinPosition(transform);
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            _weapon.Shoot();
-        }
     }
 
     public void Init(LerpRotator lerpRotator, BulletSpawner bulletSpawner)
     {
         _lerpRotator = lerpRotator;
-        _weapon.Init(bulletSpawner, Vector2.right);
+        _weapon.Init(bulletSpawner, transform.right);
+    }
+
+    public void TakeDamage()
+    {
+        Dead?.Invoke();
+    }
+
+    private void OnShoot()
+    {
+        _weapon.SetShootDirection(transform.right);
+        _weapon.Shoot();
     }
 
     private void Move()
@@ -61,11 +69,6 @@ public class Bird : MonoBehaviour, IDamageable, IDeathPublisher
     }
 
     private void OnObstacleDetected(Obstacle _)
-    {
-        Dead?.Invoke();
-    }
-
-    public void TakeDamage()
     {
         Dead?.Invoke();
     }

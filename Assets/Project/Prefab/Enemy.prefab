@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponData: {fileID: 11400000, guid: 89bfb646035a87e46be438255dcf9ed7, type: 2}
-  MuzzlePoint: {fileID: 6989619773427313764}
+  _muzzlePoint: {fileID: 6989619773427313764}
 --- !u!61 &2259470619518101485
 BoxCollider2D:
   m_ObjectHideFlags: 0

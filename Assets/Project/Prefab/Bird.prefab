@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponData: {fileID: 11400000, guid: 04e13888507734a42a639216c51456ab, type: 2}
-  MuzzlePoint: {fileID: 837898518603810399}
+  _muzzlePoint: {fileID: 837898518603810399}
 --- !u!114 &6016452174814068854
 MonoBehaviour:
   m_ObjectHideFlags: 0

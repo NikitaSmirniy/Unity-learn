@@ -4,29 +4,28 @@ using UnityEngine;
 public class Weapon : MonoBehaviour, ISoundPublisher
 {
     [SerializeField] private WeaponData _weaponData;
-    
-    [field: SerializeField] public Transform MuzzlePoint;
+    [SerializeField] private Transform _muzzlePoint;
 
     private BulletSpawner _bulletSpawner;
-    private Vector2 _direction;
+    private Vector2 _shootDirection;
 
     public event Action<AudioClip> SoundPlayed;
 
     public void Init(BulletSpawner bulletSpawner, Vector2 direction)
     {
         _bulletSpawner = bulletSpawner;
-        _direction = direction;
+        SetShootDirection(direction);
     }
 
+    public void SetShootDirection(Vector2 direction) =>
+        _shootDirection = direction;
+    
     public void Shoot()
     {
         if (_bulletSpawner != null)
         {
-            _bulletSpawner.Spawn(MuzzlePoint.position, _direction);
+            _bulletSpawner.Spawn(_muzzlePoint.position, _shootDirection);
             SoundPlayed?.Invoke(_weaponData.AudioClip);
         }
     }
-
-    public void SetDirection(Vector2 direction) =>
-        _direction = direction;
 }

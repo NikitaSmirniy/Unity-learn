@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHitable
     }
 
     public void TakeDamage()
-    {
+    { 
         Hit?.Invoke(this);
         Dead?.Invoke(this);
     }
