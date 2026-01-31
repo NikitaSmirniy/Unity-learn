@@ -6,13 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f503bcbc-ced1-481f-9ead-0ff6d7dab5e8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Prefab/Bird.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Prefab/Bird.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Prefab/Enemy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Prefab/Enemy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Scenes/IJScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Scenes/IJScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Scripts/Input/InputSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Scripts/Input/InputSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Scripts/Units/Bird.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Scripts/Units/Bird.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Scripts/Units/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Scripts/Units/Enemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Scripts/Weapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Scripts/Weapon.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +43,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/98a3908ca987433f8cbfb499c3082d5b10000/09/c8b6dcdf/AudioMixerGroup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c3441a28221640fa92166d8dbc1433a11fa00/3f/2dc2d4b0/Rigidbody2D.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b2856ca068a85f5ce4a0462fdd6462e56463d4b04c303e873a2783e049125f45/System.Security.Cryptography.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Project/Scenes/SplineFolower.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Project/Scripts/Bootsraper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Project/Scripts/Detecors/DetectorDamageable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Project/Scripts/Detecors/DetectorObstacle.cs" root0="FORCE_HIGHLIGHTING" />
@@ -210,7 +204,8 @@
       <workItem from="1769088704079" duration="9283000" />
       <workItem from="1769191811259" duration="6943000" />
       <workItem from="1769273241834" duration="12369000" />
-      <workItem from="1769327874812" duration="3242000" />
+      <workItem from="1769327874812" duration="4065000" />
+      <workItem from="1769334536664" duration="3347000" />
     </task>
     <servers />
   </component>
