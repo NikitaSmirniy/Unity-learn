@@ -1,20 +1,18 @@
+using _Project.Code;
 using FSMTest;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class MoveToBaseState : FsmState
 {
-    private NavMeshAgent _agent;
-    private Transform _baseTransform;
+    private readonly Unit _unit;
 
-    public MoveToBaseState(IStateChanger stateChange, NavMeshAgent agent, Transform baseTransform) : base(stateChange)
+    public MoveToBaseState(IStateChanger stateChange, Unit unit) : base(stateChange)
     {
-        _agent = agent;
-        _baseTransform = baseTransform;
+        _unit = unit;
     }
 
     protected override void OnUpdate()
     {
-        _agent.SetDestination(_baseTransform.position);
+        _unit.SetDestination(_unit.BaseTransform.position);
     }
 }

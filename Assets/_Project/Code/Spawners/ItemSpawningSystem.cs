@@ -11,8 +11,8 @@ namespace _Project.Code.Spawners
         private bool _isWorking = true;
         private WaitForSeconds _wait;
 
-        private readonly int _maximumAllowedCount = 10;
-        private readonly int _spawningInterval = 3;
+        private readonly int _maximumAllowedCount = 20;
+        private readonly int _spawningInterval = 2;
 
         public ItemSpawningSystem(ItemSpawner spawner, ICoroutineRunner coroutineRunner)
         {

@@ -9,37 +9,45 @@ namespace _Project.Code
     {
         [SerializeField] private ItemDetector _itemDetector;
         [SerializeField] private BaseDetector _baseDetector;
+        [SerializeField] private FlagDetector _flagDetector;
         [SerializeField] private Transform _holdingPoint;
 
         private StateMachine _stateMachine;
         private NavMeshAgent _agent;
-        private UnitStateMachineBuilder _unitStateMachineBuilder;
+        private Timer _timer;
 
-        public event Action ItemDelivered;
+        public Transform BaseTransform { get; private set; }
+        public Item HoldingItem { get; private set; }
+        public ITarget Target { get; private set; }
+        public bool IsBuilding { get; private set; }
+        public bool IsBusy => Target != null;
         
-        public void Init(Transform baseTransform)
+        public event Action<Item> ItemDelivered;
+        public event Action<Unit> Built;
+
+        public void Init(Transform baseTransform, Timer timer, StateMachine stateMachine)
         {
             _agent = GetComponent<NavMeshAgent>();
 
-            _unitStateMachineBuilder = new UnitStateMachineBuilder();
+            _timer = timer;
 
-            _stateMachine = _unitStateMachineBuilder.Build(this, _agent, baseTransform);
+            BaseTransform = baseTransform;
+
+            _stateMachine = stateMachine;
         }
-
-        public Item HoldingItem { get; private set; }
-        public Item TargetItem { get; private set; }
-        public bool IsBusy => TargetItem;
 
         private void OnEnable()
         {
             _itemDetector.Detected += OnItemDetected;
             _baseDetector.Detected += OnBaseDetected;
+            _flagDetector.Detected += OnFlagDetected;
         }
 
         private void OnDisable()
         {
             _itemDetector.Detected -= OnItemDetected;
             _baseDetector.Detected -= OnBaseDetected;
+            _flagDetector.Detected -= OnFlagDetected;
         }
 
         private void Update()
@@ -47,29 +55,50 @@ namespace _Project.Code
             _stateMachine.Update();
         }
 
-        public void SetTargetItem(Item target)
+        public void SetBaseTransform(Transform baseTransform)
+        {
+            if (baseTransform == null)
+                throw new ArgumentNullException(nameof(baseTransform));
+
+            BaseTransform = baseTransform;
+        }
+
+        public void SetTarget(ITarget target)
         {
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            TargetItem = target;
+            Target = target;
         }
 
-        private void OnBaseDetected()
+        public void SetDestination(Vector3 destination)
         {
-            if (IsBusy && HoldingItem)
+            _agent.SetDestination(destination);
+        }
+
+        public void RemoveTarget()
+        {
+            Target = null;
+        }
+
+        private void OnBaseDetected(Base detectedBase)
+        {
+            if (BaseTransform == detectedBase.transform)
             {
-                HoldingItem.Die();
-                HoldingItem = null;
-                TargetItem = null;
-                
-                ItemDelivered?.Invoke();
+                if (IsBusy && HoldingItem)
+                {
+                    ItemDelivered?.Invoke(HoldingItem);
+
+                    HoldingItem.Die();
+                    HoldingItem = null;
+                    Target = null;
+                }
             }
         }
 
         private void OnItemDetected(Item item)
         {
-            if (TargetItem == item && HoldingItem == null)
+            if (Target == item && HoldingItem == null)
             {
                 HoldingItem = item;
                 item.transform.SetParent(_holdingPoint);
@@ -77,6 +106,23 @@ namespace _Project.Code
 
                 item.GetCollected();
             }
+        }
+
+        private void OnFlagDetected(Flag flag)
+        {
+            if (Target == flag && IsBuilding == false)
+            {
+                IsBuilding = true;
+
+                _timer.Start(EndBuilding);
+            }
+        }
+
+        private void EndBuilding()
+        {
+            IsBuilding = false;
+
+            Built?.Invoke(this);
         }
     }
 }

@@ -14,11 +14,11 @@ public class BaseItemAmountPresenter : IDisposable
 
     public void Enable()
     {
-        _base.ItemAmountChanged += _view.SetAmount;
+        //_base.ItemAmountChanged += _view.SetAmount;
     }
 
     public void Dispose()
     {
-        _base.ItemAmountChanged -= _view.SetAmount;
+        //_base.ItemAmountChanged -= _view.SetAmount;
     }
 }

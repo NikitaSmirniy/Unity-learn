@@ -1,32 +1,35 @@
 using FSMTest;
-using UnityEngine;
-using UnityEngine.AI;
 
 namespace _Project.Code
 {
     public class UnitStateMachineBuilder
     {
-        public StateMachine Build(Unit unit, NavMeshAgent agent, Transform baseTransform)
+        public StateMachine Build(Unit unit)
         {
             StateMachine stateMachine = new StateMachine();
 
             IdleState idleState = new IdleState(stateMachine);
-            MoveToItemState moveToItemState = new MoveToItemState(stateMachine, agent, unit);
-            MoveToBaseState moveToBaseState = new MoveToBaseState(stateMachine, agent, baseTransform);
-
+            MoveToTargetState moveToTargetState = new MoveToTargetState(stateMachine, unit);
+            MoveToBaseState moveToBaseState = new MoveToBaseState(stateMachine, unit);
+            BuildingBaseState buildingBaseState = new BuildingBaseState(stateMachine);
+            
             ToIdleTransition toIdleTransition = new ToIdleTransition(idleState, unit);
-            ToMoveToItemTransition toMoveToItemTransition = new ToMoveToItemTransition(moveToItemState, unit);
+            ToMoveToTargetTransition toMoveToTargetTransition = new ToMoveToTargetTransition(moveToTargetState, unit);
             ToMoveToBaseTransition toMoveToBaseTransition = new ToMoveToBaseTransition(moveToBaseState, unit);
+            ToBuildingBaseTransition toBuildingBaseTransition = new ToBuildingBaseTransition(buildingBaseState, unit);
 
-            idleState.AddTransition(toMoveToItemTransition);
+            idleState.AddTransition(toMoveToTargetTransition);
             idleState.AddTransition(toMoveToBaseTransition);
 
-            moveToItemState.AddTransition(toMoveToBaseTransition);
-            moveToItemState.AddTransition(toMoveToItemTransition);
+            moveToTargetState.AddTransition(toMoveToBaseTransition);
+            moveToTargetState.AddTransition(toBuildingBaseTransition);
+            moveToTargetState.AddTransition(toIdleTransition);
 
             moveToBaseState.AddTransition(toIdleTransition);
-            moveToBaseState.AddTransition(toMoveToItemTransition);
+            moveToBaseState.AddTransition(toMoveToTargetTransition);
 
+            buildingBaseState.AddTransition(toIdleTransition);
+            
             stateMachine.ChangeState(idleState);
 
             return stateMachine;
